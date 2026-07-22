@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="org.springframework.samples.petclinic.PostgresIntegrationTests" time="40.364" tests="2" errors="0" skipped="0" failures="0" flakes="0">
+  <properties>
+    <property name="git.tags" value=""/>
+    <property name="java.specification.version" value="17"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="git.build.version" value="4.0.0-SNAPSHOT"/>
+    <property name="java.class.path" value="/home/dlmm/spring-petclinic/target/test-classes:/home/dlmm/spring-petclinic/target/classes:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-actuator/4.1.0/spring-boot-starter-actuator-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter/4.1.0/spring-boot-starter-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-logging/4.1.0/spring-boot-starter-logging-4.1.0.jar:/home/dlmm/.m2/repository/ch/qos/logback/logback-classic/1.5.34/logback-classic-1.5.34.jar:/home/dlmm/.m2/repository/ch/qos/logback/logback-core/1.5.34/logback-core-1.5.34.jar:/home/dlmm/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.25.4/log4j-to-slf4j-2.25.4.jar:/home/dlmm/.m2/repository/org/apache/logging/log4j/log4j-api/2.25.4/log4j-api-2.25.4.jar:/home/dlmm/.m2/repository/org/slf4j/jul-to-slf4j/2.0.18/jul-to-slf4j-2.0.18.jar:/home/dlmm/.m2/repository/jakarta/annotation/jakarta.annotation-api/3.0.0/jakarta.annotation-api-3.0.0.jar:/home/dlmm/.m2/repository/org/yaml/snakeyaml/2.6/snakeyaml-2.6.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-micrometer-metrics/4.1.0/spring-boot-starter-micrometer-metrics-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-micrometer-metrics/4.1.0/spring-boot-micrometer-metrics-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-micrometer-observation/4.1.0/spring-boot-micrometer-observation-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-actuator-autoconfigure/4.1.0/spring-boot-actuator-autoconfigure-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-actuator/4.1.0/spring-boot-actuator-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-health/4.1.0/spring-boot-health-4.1.0.jar:/home/dlmm/.m2/repository/io/micrometer/micrometer-observation/1.17.0/micrometer-observation-1.17.0.jar:/home/dlmm/.m2/repository/io/micrometer/micrometer-commons/1.17.0/micrometer-commons-1.17.0.jar:/home/dlmm/.m2/repository/io/micrometer/micrometer-jakarta9/1.17.0/micrometer-jakarta9-1.17.0.jar:/home/dlmm/.m2/repository/io/micrometer/micrometer-core/1.17.0/micrometer-core-1.17.0.jar:/home/dlmm/.m2/repository/org/hdrhistogram/HdrHistogram/2.2.2/HdrHistogram-2.2.2.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-cache/4.1.0/spring-boot-starter-cache-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-cache/4.1.0/spring-boot-cache-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/spring-context-support/7.0.8/spring-context-support-7.0.8.jar:/home/dlmm/.m2/repository/org/springframework/spring-beans/7.0.8/spring-beans-7.0.8.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa/4.1.0/spring-boot-starter-data-jpa-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/4.1.0/spring-boot-starter-jdbc-4.1.0.jar:/home/dlmm/.m2/repository/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-data-jpa/4.1.0/spring-boot-data-jpa-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-data-commons/4.1.0/spring-boot-data-commons-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-persistence/4.1.0/spring-boot-persistence-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/data/spring-data-commons/4.1.0/spring-data-commons-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-hibernate/4.1.0/spring-boot-hibernate-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-jpa/4.1.0/spring-boot-jpa-4.1.0.jar:/home/dlmm/.m2/repository/jakarta/persistence/jakarta.persistence-api/3.2.0/jakarta.persistence-api-3.2.0.jar:/home/dlmm/.m2/repository/org/hibernate/orm/hibernate-core/7.4.1.Final/hibernate-core-7.4.1.Final.jar:/home/dlmm/.m2/repository/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.jar:/home/dlmm/.m2/repository/org/hibernate/models/hibernate-models/1.1.1/hibernate-models-1.1.1.jar:/home/dlmm/.m2/repository/org/glassfish/jaxb/jaxb-runtime/4.0.9/jaxb-runtime-4.0.9.jar:/home/dlmm/.m2/repository/org/glassfish/jaxb/jaxb-core/4.0.9/jaxb-core-4.0.9.jar:/home/dlmm/.m2/repository/org/eclipse/angus/angus-activation/2.0.3/angus-activation-2.0.3.jar:/home/dlmm/.m2/repository/org/glassfish/jaxb/txw2/4.0.9/txw2-4.0.9.jar:/home/dlmm/.m2/repository/com/sun/istack/istack-commons-runtime/4.1.2/istack-commons-runtime-4.1.2.jar:/home/dlmm/.m2/repository/jakarta/inject/jakarta.inject-api/2.0.1/jakarta.inject-api-2.0.1.jar:/home/dlmm/.m2/repository/org/springframework/spring-orm/7.0.8/spring-orm-7.0.8.jar:/home/dlmm/.m2/repository/org/springframework/data/spring-data-jpa/4.1.0/spring-data-jpa-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/spring-aop/7.0.8/spring-aop-7.0.8.jar:/home/dlmm/.m2/repository/org/springframework/spring-tx/7.0.8/spring-tx-7.0.8.jar:/home/dlmm/.m2/repository/org/antlr/antlr4-runtime/4.13.2/antlr4-runtime-4.13.2.jar:/home/dlmm/.m2/repository/org/springframework/spring-aspects/7.0.8/spring-aspects-7.0.8.jar:/home/dlmm/.m2/repository/org/aspectj/aspectjweaver/1.9.25.1/aspectjweaver-1.9.25.1.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-jdbc/4.1.0/spring-boot-jdbc-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-sql/4.1.0/spring-boot-sql-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-transaction/4.1.0/spring-boot-transaction-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/spring-jdbc/7.0.8/spring-jdbc-7.0.8.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-thymeleaf/4.1.0/spring-boot-starter-thymeleaf-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-thymeleaf/4.1.0/spring-boot-thymeleaf-4.1.0.jar:/home/dlmm/.m2/repository/org/thymeleaf/thymeleaf-spring6/3.1.5.RELEASE/thymeleaf-spring6-3.1.5.RELEASE.jar:/home/dlmm/.m2/repository/org/thymeleaf/thymeleaf/3.1.5.RELEASE/thymeleaf-3.1.5.RELEASE.jar:/home/dlmm/.m2/repository/org/attoparser/attoparser/2.0.7.RELEASE/attoparser-2.0.7.RELEASE.jar:/home/dlmm/.m2/repository/org/unbescape/unbescape/1.1.6.RELEASE/unbescape-1.1.6.RELEASE.jar:/home/dlmm/.m2/repository/org/springframework/spring-web/7.0.8/spring-web-7.0.8.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-validation/4.1.0/spring-boot-starter-validation-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-validation/4.1.0/spring-boot-validation-4.1.0.jar:/home/dlmm/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/11.0.22/tomcat-embed-el-11.0.22.jar:/home/dlmm/.m2/repository/org/hibernate/validator/hibernate-validator/9.1.0.Final/hibernate-validator-9.1.0.Final.jar:/home/dlmm/.m2/repository/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.jar:/home/dlmm/.m2/repository/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar:/home/dlmm/.m2/repository/com/fasterxml/classmate/1.7.3/classmate-1.7.3.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-webmvc/4.1.0/spring-boot-starter-webmvc-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-jackson/4.1.0/spring-boot-starter-jackson-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-jackson/4.1.0/spring-boot-jackson-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/4.1.0/spring-boot-starter-tomcat-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat-runtime/4.1.0/spring-boot-starter-tomcat-runtime-4.1.0.jar:/home/dlmm/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/11.0.22/tomcat-embed-core-11.0.22.jar:/home/dlmm/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/11.0.22/tomcat-embed-websocket-11.0.22.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-tomcat/4.1.0/spring-boot-tomcat-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-http-converter/4.1.0/spring-boot-http-converter-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-webmvc/4.1.0/spring-boot-webmvc-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-servlet/4.1.0/spring-boot-servlet-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/spring-webmvc/7.0.8/spring-webmvc-7.0.8.jar:/home/dlmm/.m2/repository/org/springframework/spring-expression/7.0.8/spring-expression-7.0.8.jar:/home/dlmm/.m2/repository/javax/cache/cache-api/1.1.1/cache-api-1.1.1.jar:/home/dlmm/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.5/jakarta.xml.bind-api-4.0.5.jar:/home/dlmm/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/home/dlmm/.m2/repository/com/h2database/h2/2.4.240/h2-2.4.240.jar:/home/dlmm/.m2/repository/com/github/ben-manes/caffeine/caffeine/3.2.4/caffeine-3.2.4.jar:/home/dlmm/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/home/dlmm/.m2/repository/com/google/errorprone/error_prone_annotations/2.49.0/error_prone_annotations-2.49.0.jar:/home/dlmm/.m2/repository/com/mysql/mysql-connector-j/9.7.0/mysql-connector-j-9.7.0.jar:/home/dlmm/.m2/repository/org/postgresql/postgresql/42.7.11/postgresql-42.7.11.jar:/home/dlmm/.m2/repository/org/webjars/webjars-locator-lite/1.1.3/webjars-locator-lite-1.1.3.jar:/home/dlmm/.m2/repository/org/webjars/npm/bootstrap/5.3.8/bootstrap-5.3.8.jar:/home/dlmm/.m2/repository/org/webjars/npm/font-awesome/4.7.0/font-awesome-4.7.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-devtools/4.1.0/spring-boot-devtools-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot/4.1.0/spring-boot-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/spring-core/7.0.8/spring-core-7.0.8.jar:/home/dlmm/.m2/repository/commons-logging/commons-logging/1.3.6/commons-logging-1.3.6.jar:/home/dlmm/.m2/repository/org/springframework/spring-context/7.0.8/spring-context-7.0.8.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/4.1.0/spring-boot-autoconfigure-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa-test/4.1.0/spring-boot-starter-data-jpa-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-test/4.1.0/spring-boot-starter-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-test/4.1.0/spring-boot-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-test-autoconfigure/4.1.0/spring-boot-test-autoconfigure-4.1.0.jar:/home/dlmm/.m2/repository/com/jayway/jsonpath/json-path/2.10.0/json-path-2.10.0.jar:/home/dlmm/.m2/repository/net/minidev/json-smart/2.6.0/json-smart-2.6.0.jar:/home/dlmm/.m2/repository/net/minidev/accessors-smart/2.6.0/accessors-smart-2.6.0.jar:/home/dlmm/.m2/repository/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/home/dlmm/.m2/repository/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/home/dlmm/.m2/repository/net/bytebuddy/byte-buddy/1.18.10/byte-buddy-1.18.10.jar:/home/dlmm/.m2/repository/org/awaitility/awaitility/4.3.0/awaitility-4.3.0.jar:/home/dlmm/.m2/repository/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/home/dlmm/.m2/repository/org/junit/jupiter/junit-jupiter/6.0.3/junit-jupiter-6.0.3.jar:/home/dlmm/.m2/repository/org/junit/jupiter/junit-jupiter-api/6.0.3/junit-jupiter-api-6.0.3.jar:/home/dlmm/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/dlmm/.m2/repository/org/junit/platform/junit-platform-commons/6.0.3/junit-platform-commons-6.0.3.jar:/home/dlmm/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/dlmm/.m2/repository/org/junit/jupiter/junit-jupiter-params/6.0.3/junit-jupiter-params-6.0.3.jar:/home/dlmm/.m2/repository/org/junit/jupiter/junit-jupiter-engine/6.0.3/junit-jupiter-engine-6.0.3.jar:/home/dlmm/.m2/repository/org/junit/platform/junit-platform-engine/6.0.3/junit-platform-engine-6.0.3.jar:/home/dlmm/.m2/repository/org/mockito/mockito-core/5.23.0/mockito-core-5.23.0.jar:/home/dlmm/.m2/repository/net/bytebuddy/byte-buddy-agent/1.18.10/byte-buddy-agent-1.18.10.jar:/home/dlmm/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/home/dlmm/.m2/repository/org/mockito/mockito-junit-jupiter/5.23.0/mockito-junit-jupiter-5.23.0.jar:/home/dlmm/.m2/repository/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/home/dlmm/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/home/dlmm/.m2/repository/org/springframework/spring-test/7.0.8/spring-test-7.0.8.jar:/home/dlmm/.m2/repository/org/xmlunit/xmlunit-core/2.11.0/xmlunit-core-2.11.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc-test/4.1.0/spring-boot-starter-jdbc-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-jdbc-test/4.1.0/spring-boot-jdbc-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-data-jpa-test/4.1.0/spring-boot-data-jpa-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-jpa-test/4.1.0/spring-boot-jpa-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-restclient/4.1.0/spring-boot-starter-restclient-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-restclient/4.1.0/spring-boot-restclient-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-http-client/4.1.0/spring-boot-http-client-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-restclient-test/4.1.0/spring-boot-starter-restclient-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-jackson-test/4.1.0/spring-boot-starter-jackson-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-restclient-test/4.1.0/spring-boot-restclient-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-thymeleaf-test/4.1.0/spring-boot-starter-thymeleaf-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-validation-test/4.1.0/spring-boot-starter-validation-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-webmvc-test/4.1.0/spring-boot-starter-webmvc-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-webmvc-test/4.1.0/spring-boot-webmvc-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-web-server/4.1.0/spring-boot-web-server-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-resttestclient/4.1.0/spring-boot-resttestclient-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-actuator-test/4.1.0/spring-boot-starter-actuator-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-micrometer-metrics-test/4.1.0/spring-boot-starter-micrometer-metrics-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-micrometer-metrics-test/4.1.0/spring-boot-micrometer-metrics-test-4.1.0.jar:/home/dlmm/.m2/repository/io/micrometer/micrometer-observation-test/1.17.0/micrometer-observation-test-1.17.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-testcontainers/4.1.0/spring-boot-testcontainers-4.1.0.jar:/home/dlmm/.m2/repository/org/testcontainers/testcontainers/2.0.5/testcontainers-2.0.5.jar:/home/dlmm/.m2/repository/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar:/home/dlmm/.m2/repository/org/apache/commons/commons-compress/1.28.0/commons-compress-1.28.0.jar:/home/dlmm/.m2/repository/commons-codec/commons-codec/1.21.0/commons-codec-1.21.0.jar:/home/dlmm/.m2/repository/commons-io/commons-io/2.20.0/commons-io-2.20.0.jar:/home/dlmm/.m2/repository/org/apache/commons/commons-lang3/3.20.0/commons-lang3-3.20.0.jar:/home/dlmm/.m2/repository/org/rnorth/duct-tape/duct-tape/1.0.8/duct-tape-1.0.8.jar:/home/dlmm/.m2/repository/org/jetbrains/annotations/17.0.0/annotations-17.0.0.jar:/home/dlmm/.m2/repository/com/github/docker-java/docker-java-api/3.7.1/docker-java-api-3.7.1.jar:/home/dlmm/.m2/repository/com/github/docker-java/docker-java-transport-zerodep/3.7.1/docker-java-transport-zerodep-3.7.1.jar:/home/dlmm/.m2/repository/com/github/docker-java/docker-java-transport/3.7.1/docker-java-transport-3.7.1.jar:/home/dlmm/.m2/repository/net/java/dev/jna/jna/5.18.1/jna-5.18.1.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-docker-compose/4.1.0/spring-boot-docker-compose-4.1.0.jar:/home/dlmm/.m2/repository/tools/jackson/core/jackson-databind/3.1.4/jackson-databind-3.1.4.jar:/home/dlmm/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/home/dlmm/.m2/repository/tools/jackson/core/jackson-core/3.1.4/jackson-core-3.1.4.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-cache-test/4.1.0/spring-boot-starter-cache-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-cache-test/4.1.0/spring-boot-cache-test-4.1.0.jar:/home/dlmm/.m2/repository/org/testcontainers/testcontainers-junit-jupiter/2.0.5/testcontainers-junit-jupiter-2.0.5.jar:/home/dlmm/.m2/repository/org/testcontainers/testcontainers-mysql/2.0.5/testcontainers-mysql-2.0.5.jar:/home/dlmm/.m2/repository/org/testcontainers/testcontainers-jdbc/2.0.5/testcontainers-jdbc-2.0.5.jar:/home/dlmm/.m2/repository/org/testcontainers/testcontainers-database-commons/2.0.5/testcontainers-database-commons-2.0.5.jar:"/>
+    <property name="git.branch" value="main"/>
+    <property name="git.build.host" value="dlmm"/>
+    <property name="java.vm.vendor" value="Ubuntu"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="git.commit.id" value="b3ee2c53e76e9267f03551a7cd36b0983c859c56"/>
+    <property name="java.vendor.url" value="https://ubuntu.com/"/>
+    <property name="catalina.useNaming" value="false"/>
+    <property name="user.timezone" value="Africa/Dakar"/>
+    <property name="org.jboss.logging.provider" value="slf4j"/>
+    <property name="java.vm.specification.version" value="17"/>
+    <property name="os.name" value="Linux"/>
+    <property name="git.commit.author.time" value="2026-06-17T08:29:49Z"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="git.build.user.name" value=""/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-17-openjdk-amd64/lib"/>
+    <property name="sun.java.command" value="/home/dlmm/spring-petclinic/target/surefire/surefirebooter-20260624002832722_3.jar /home/dlmm/spring-petclinic/target/surefire 2026-06-24T00-28-31_531-jvmRun1 surefire-20260624002832722_1tmp surefire_0-20260624002832722_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/home/dlmm/spring-petclinic/target/test-classes:/home/dlmm/spring-petclinic/target/classes:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-actuator/4.1.0/spring-boot-starter-actuator-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter/4.1.0/spring-boot-starter-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-logging/4.1.0/spring-boot-starter-logging-4.1.0.jar:/home/dlmm/.m2/repository/ch/qos/logback/logback-classic/1.5.34/logback-classic-1.5.34.jar:/home/dlmm/.m2/repository/ch/qos/logback/logback-core/1.5.34/logback-core-1.5.34.jar:/home/dlmm/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.25.4/log4j-to-slf4j-2.25.4.jar:/home/dlmm/.m2/repository/org/apache/logging/log4j/log4j-api/2.25.4/log4j-api-2.25.4.jar:/home/dlmm/.m2/repository/org/slf4j/jul-to-slf4j/2.0.18/jul-to-slf4j-2.0.18.jar:/home/dlmm/.m2/repository/jakarta/annotation/jakarta.annotation-api/3.0.0/jakarta.annotation-api-3.0.0.jar:/home/dlmm/.m2/repository/org/yaml/snakeyaml/2.6/snakeyaml-2.6.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-micrometer-metrics/4.1.0/spring-boot-starter-micrometer-metrics-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-micrometer-metrics/4.1.0/spring-boot-micrometer-metrics-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-micrometer-observation/4.1.0/spring-boot-micrometer-observation-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-actuator-autoconfigure/4.1.0/spring-boot-actuator-autoconfigure-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-actuator/4.1.0/spring-boot-actuator-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-health/4.1.0/spring-boot-health-4.1.0.jar:/home/dlmm/.m2/repository/io/micrometer/micrometer-observation/1.17.0/micrometer-observation-1.17.0.jar:/home/dlmm/.m2/repository/io/micrometer/micrometer-commons/1.17.0/micrometer-commons-1.17.0.jar:/home/dlmm/.m2/repository/io/micrometer/micrometer-jakarta9/1.17.0/micrometer-jakarta9-1.17.0.jar:/home/dlmm/.m2/repository/io/micrometer/micrometer-core/1.17.0/micrometer-core-1.17.0.jar:/home/dlmm/.m2/repository/org/hdrhistogram/HdrHistogram/2.2.2/HdrHistogram-2.2.2.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-cache/4.1.0/spring-boot-starter-cache-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-cache/4.1.0/spring-boot-cache-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/spring-context-support/7.0.8/spring-context-support-7.0.8.jar:/home/dlmm/.m2/repository/org/springframework/spring-beans/7.0.8/spring-beans-7.0.8.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa/4.1.0/spring-boot-starter-data-jpa-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/4.1.0/spring-boot-starter-jdbc-4.1.0.jar:/home/dlmm/.m2/repository/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-data-jpa/4.1.0/spring-boot-data-jpa-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-data-commons/4.1.0/spring-boot-data-commons-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-persistence/4.1.0/spring-boot-persistence-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/data/spring-data-commons/4.1.0/spring-data-commons-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-hibernate/4.1.0/spring-boot-hibernate-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-jpa/4.1.0/spring-boot-jpa-4.1.0.jar:/home/dlmm/.m2/repository/jakarta/persistence/jakarta.persistence-api/3.2.0/jakarta.persistence-api-3.2.0.jar:/home/dlmm/.m2/repository/org/hibernate/orm/hibernate-core/7.4.1.Final/hibernate-core-7.4.1.Final.jar:/home/dlmm/.m2/repository/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.jar:/home/dlmm/.m2/repository/org/hibernate/models/hibernate-models/1.1.1/hibernate-models-1.1.1.jar:/home/dlmm/.m2/repository/org/glassfish/jaxb/jaxb-runtime/4.0.9/jaxb-runtime-4.0.9.jar:/home/dlmm/.m2/repository/org/glassfish/jaxb/jaxb-core/4.0.9/jaxb-core-4.0.9.jar:/home/dlmm/.m2/repository/org/eclipse/angus/angus-activation/2.0.3/angus-activation-2.0.3.jar:/home/dlmm/.m2/repository/org/glassfish/jaxb/txw2/4.0.9/txw2-4.0.9.jar:/home/dlmm/.m2/repository/com/sun/istack/istack-commons-runtime/4.1.2/istack-commons-runtime-4.1.2.jar:/home/dlmm/.m2/repository/jakarta/inject/jakarta.inject-api/2.0.1/jakarta.inject-api-2.0.1.jar:/home/dlmm/.m2/repository/org/springframework/spring-orm/7.0.8/spring-orm-7.0.8.jar:/home/dlmm/.m2/repository/org/springframework/data/spring-data-jpa/4.1.0/spring-data-jpa-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/spring-aop/7.0.8/spring-aop-7.0.8.jar:/home/dlmm/.m2/repository/org/springframework/spring-tx/7.0.8/spring-tx-7.0.8.jar:/home/dlmm/.m2/repository/org/antlr/antlr4-runtime/4.13.2/antlr4-runtime-4.13.2.jar:/home/dlmm/.m2/repository/org/springframework/spring-aspects/7.0.8/spring-aspects-7.0.8.jar:/home/dlmm/.m2/repository/org/aspectj/aspectjweaver/1.9.25.1/aspectjweaver-1.9.25.1.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-jdbc/4.1.0/spring-boot-jdbc-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-sql/4.1.0/spring-boot-sql-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-transaction/4.1.0/spring-boot-transaction-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/spring-jdbc/7.0.8/spring-jdbc-7.0.8.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-thymeleaf/4.1.0/spring-boot-starter-thymeleaf-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-thymeleaf/4.1.0/spring-boot-thymeleaf-4.1.0.jar:/home/dlmm/.m2/repository/org/thymeleaf/thymeleaf-spring6/3.1.5.RELEASE/thymeleaf-spring6-3.1.5.RELEASE.jar:/home/dlmm/.m2/repository/org/thymeleaf/thymeleaf/3.1.5.RELEASE/thymeleaf-3.1.5.RELEASE.jar:/home/dlmm/.m2/repository/org/attoparser/attoparser/2.0.7.RELEASE/attoparser-2.0.7.RELEASE.jar:/home/dlmm/.m2/repository/org/unbescape/unbescape/1.1.6.RELEASE/unbescape-1.1.6.RELEASE.jar:/home/dlmm/.m2/repository/org/springframework/spring-web/7.0.8/spring-web-7.0.8.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-validation/4.1.0/spring-boot-starter-validation-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-validation/4.1.0/spring-boot-validation-4.1.0.jar:/home/dlmm/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/11.0.22/tomcat-embed-el-11.0.22.jar:/home/dlmm/.m2/repository/org/hibernate/validator/hibernate-validator/9.1.0.Final/hibernate-validator-9.1.0.Final.jar:/home/dlmm/.m2/repository/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.jar:/home/dlmm/.m2/repository/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar:/home/dlmm/.m2/repository/com/fasterxml/classmate/1.7.3/classmate-1.7.3.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-webmvc/4.1.0/spring-boot-starter-webmvc-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-jackson/4.1.0/spring-boot-starter-jackson-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-jackson/4.1.0/spring-boot-jackson-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/4.1.0/spring-boot-starter-tomcat-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat-runtime/4.1.0/spring-boot-starter-tomcat-runtime-4.1.0.jar:/home/dlmm/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/11.0.22/tomcat-embed-core-11.0.22.jar:/home/dlmm/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/11.0.22/tomcat-embed-websocket-11.0.22.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-tomcat/4.1.0/spring-boot-tomcat-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-http-converter/4.1.0/spring-boot-http-converter-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-webmvc/4.1.0/spring-boot-webmvc-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-servlet/4.1.0/spring-boot-servlet-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/spring-webmvc/7.0.8/spring-webmvc-7.0.8.jar:/home/dlmm/.m2/repository/org/springframework/spring-expression/7.0.8/spring-expression-7.0.8.jar:/home/dlmm/.m2/repository/javax/cache/cache-api/1.1.1/cache-api-1.1.1.jar:/home/dlmm/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.5/jakarta.xml.bind-api-4.0.5.jar:/home/dlmm/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/home/dlmm/.m2/repository/com/h2database/h2/2.4.240/h2-2.4.240.jar:/home/dlmm/.m2/repository/com/github/ben-manes/caffeine/caffeine/3.2.4/caffeine-3.2.4.jar:/home/dlmm/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/home/dlmm/.m2/repository/com/google/errorprone/error_prone_annotations/2.49.0/error_prone_annotations-2.49.0.jar:/home/dlmm/.m2/repository/com/mysql/mysql-connector-j/9.7.0/mysql-connector-j-9.7.0.jar:/home/dlmm/.m2/repository/org/postgresql/postgresql/42.7.11/postgresql-42.7.11.jar:/home/dlmm/.m2/repository/org/webjars/webjars-locator-lite/1.1.3/webjars-locator-lite-1.1.3.jar:/home/dlmm/.m2/repository/org/webjars/npm/bootstrap/5.3.8/bootstrap-5.3.8.jar:/home/dlmm/.m2/repository/org/webjars/npm/font-awesome/4.7.0/font-awesome-4.7.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-devtools/4.1.0/spring-boot-devtools-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot/4.1.0/spring-boot-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/spring-core/7.0.8/spring-core-7.0.8.jar:/home/dlmm/.m2/repository/commons-logging/commons-logging/1.3.6/commons-logging-1.3.6.jar:/home/dlmm/.m2/repository/org/springframework/spring-context/7.0.8/spring-context-7.0.8.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/4.1.0/spring-boot-autoconfigure-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa-test/4.1.0/spring-boot-starter-data-jpa-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-test/4.1.0/spring-boot-starter-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-test/4.1.0/spring-boot-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-test-autoconfigure/4.1.0/spring-boot-test-autoconfigure-4.1.0.jar:/home/dlmm/.m2/repository/com/jayway/jsonpath/json-path/2.10.0/json-path-2.10.0.jar:/home/dlmm/.m2/repository/net/minidev/json-smart/2.6.0/json-smart-2.6.0.jar:/home/dlmm/.m2/repository/net/minidev/accessors-smart/2.6.0/accessors-smart-2.6.0.jar:/home/dlmm/.m2/repository/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/home/dlmm/.m2/repository/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/home/dlmm/.m2/repository/net/bytebuddy/byte-buddy/1.18.10/byte-buddy-1.18.10.jar:/home/dlmm/.m2/repository/org/awaitility/awaitility/4.3.0/awaitility-4.3.0.jar:/home/dlmm/.m2/repository/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/home/dlmm/.m2/repository/org/junit/jupiter/junit-jupiter/6.0.3/junit-jupiter-6.0.3.jar:/home/dlmm/.m2/repository/org/junit/jupiter/junit-jupiter-api/6.0.3/junit-jupiter-api-6.0.3.jar:/home/dlmm/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/dlmm/.m2/repository/org/junit/platform/junit-platform-commons/6.0.3/junit-platform-commons-6.0.3.jar:/home/dlmm/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/dlmm/.m2/repository/org/junit/jupiter/junit-jupiter-params/6.0.3/junit-jupiter-params-6.0.3.jar:/home/dlmm/.m2/repository/org/junit/jupiter/junit-jupiter-engine/6.0.3/junit-jupiter-engine-6.0.3.jar:/home/dlmm/.m2/repository/org/junit/platform/junit-platform-engine/6.0.3/junit-platform-engine-6.0.3.jar:/home/dlmm/.m2/repository/org/mockito/mockito-core/5.23.0/mockito-core-5.23.0.jar:/home/dlmm/.m2/repository/net/bytebuddy/byte-buddy-agent/1.18.10/byte-buddy-agent-1.18.10.jar:/home/dlmm/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/home/dlmm/.m2/repository/org/mockito/mockito-junit-jupiter/5.23.0/mockito-junit-jupiter-5.23.0.jar:/home/dlmm/.m2/repository/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/home/dlmm/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/home/dlmm/.m2/repository/org/springframework/spring-test/7.0.8/spring-test-7.0.8.jar:/home/dlmm/.m2/repository/org/xmlunit/xmlunit-core/2.11.0/xmlunit-core-2.11.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc-test/4.1.0/spring-boot-starter-jdbc-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-jdbc-test/4.1.0/spring-boot-jdbc-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-data-jpa-test/4.1.0/spring-boot-data-jpa-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-jpa-test/4.1.0/spring-boot-jpa-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-restclient/4.1.0/spring-boot-starter-restclient-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-restclient/4.1.0/spring-boot-restclient-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-http-client/4.1.0/spring-boot-http-client-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-restclient-test/4.1.0/spring-boot-starter-restclient-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-jackson-test/4.1.0/spring-boot-starter-jackson-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-restclient-test/4.1.0/spring-boot-restclient-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-thymeleaf-test/4.1.0/spring-boot-starter-thymeleaf-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-validation-test/4.1.0/spring-boot-starter-validation-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-webmvc-test/4.1.0/spring-boot-starter-webmvc-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-webmvc-test/4.1.0/spring-boot-webmvc-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-web-server/4.1.0/spring-boot-web-server-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-resttestclient/4.1.0/spring-boot-resttestclient-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-actuator-test/4.1.0/spring-boot-starter-actuator-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-micrometer-metrics-test/4.1.0/spring-boot-starter-micrometer-metrics-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-micrometer-metrics-test/4.1.0/spring-boot-micrometer-metrics-test-4.1.0.jar:/home/dlmm/.m2/repository/io/micrometer/micrometer-observation-test/1.17.0/micrometer-observation-test-1.17.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-testcontainers/4.1.0/spring-boot-testcontainers-4.1.0.jar:/home/dlmm/.m2/repository/org/testcontainers/testcontainers/2.0.5/testcontainers-2.0.5.jar:/home/dlmm/.m2/repository/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar:/home/dlmm/.m2/repository/org/apache/commons/commons-compress/1.28.0/commons-compress-1.28.0.jar:/home/dlmm/.m2/repository/commons-codec/commons-codec/1.21.0/commons-codec-1.21.0.jar:/home/dlmm/.m2/repository/commons-io/commons-io/2.20.0/commons-io-2.20.0.jar:/home/dlmm/.m2/repository/org/apache/commons/commons-lang3/3.20.0/commons-lang3-3.20.0.jar:/home/dlmm/.m2/repository/org/rnorth/duct-tape/duct-tape/1.0.8/duct-tape-1.0.8.jar:/home/dlmm/.m2/repository/org/jetbrains/annotations/17.0.0/annotations-17.0.0.jar:/home/dlmm/.m2/repository/com/github/docker-java/docker-java-api/3.7.1/docker-java-api-3.7.1.jar:/home/dlmm/.m2/repository/com/github/docker-java/docker-java-transport-zerodep/3.7.1/docker-java-transport-zerodep-3.7.1.jar:/home/dlmm/.m2/repository/com/github/docker-java/docker-java-transport/3.7.1/docker-java-transport-3.7.1.jar:/home/dlmm/.m2/repository/net/java/dev/jna/jna/5.18.1/jna-5.18.1.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-docker-compose/4.1.0/spring-boot-docker-compose-4.1.0.jar:/home/dlmm/.m2/repository/tools/jackson/core/jackson-databind/3.1.4/jackson-databind-3.1.4.jar:/home/dlmm/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/home/dlmm/.m2/repository/tools/jackson/core/jackson-core/3.1.4/jackson-core-3.1.4.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-starter-cache-test/4.1.0/spring-boot-starter-cache-test-4.1.0.jar:/home/dlmm/.m2/repository/org/springframework/boot/spring-boot-cache-test/4.1.0/spring-boot-cache-test-4.1.0.jar:/home/dlmm/.m2/repository/org/testcontainers/testcontainers-junit-jupiter/2.0.5/testcontainers-junit-jupiter-2.0.5.jar:/home/dlmm/.m2/repository/org/testcontainers/testcontainers-mysql/2.0.5/testcontainers-mysql-2.0.5.jar:/home/dlmm/.m2/repository/org/testcontainers/testcontainers-jdbc/2.0.5/testcontainers-jdbc-2.0.5.jar:/home/dlmm/.m2/repository/org/testcontainers/testcontainers-database-commons/2.0.5/testcontainers-database-commons-2.0.5.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/home/dlmm"/>
+    <property name="user.language" value="en"/>
+    <property name="git.closest.tag.commit.count" value=""/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-04-21"/>
+    <property name="java.home" value="/usr/lib/jvm/java-17-openjdk-amd64"/>
+    <property name="git.total.commit.count" value="1034"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/home/dlmm/spring-petclinic"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="git.build.user.email" value=""/>
+    <property name="git.commit.committer.time" value="2026-06-19T12:28:28Z"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="FILE_LOG_CHARSET" value="UTF-8"/>
+    <property name="java.awt.headless" value="true"/>
+    <property name="git.tag" value=""/>
+    <property name="git.closest.tag.name" value=""/>
+    <property name="git.local.branch.ahead" value="0"/>
+    <property name="git.build.time" value="2024-11-28T14:37:52Z"/>
+    <property name="surefire.real.class.path" value="/home/dlmm/spring-petclinic/target/surefire/surefirebooter-20260624002832722_3.jar"/>
+    <property name="git.commit.message.full" value="Add test for duplicate pet name during update&#10;&#10;Signed-off-by: sumituppal03 &lt;sumituppal2004@gmail.com&gt;"/>
+    <property name="junit.platform.listeners.uid.tracking.enabled" value="true"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="junit.platform.listeners.uid.tracking.output.dir" value="/home/dlmm/spring-petclinic/target/test-ids"/>
+    <property name="java.runtime.version" value="17.0.19+10-1-22.04.2-Ubuntu"/>
+    <property name="user.name" value="dlmm"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="6.8.0-124-generic"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="jnidispatch.path" value="/home/dlmm/.cache/JNA/temp/jna11507785437243053647.tmp"/>
+    <property name="git.commit.user.email" value="sumituppal2004@gmail.com"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="jna.platform.library.path" value="/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/usr/lib64:/lib64:/usr/lib:/lib"/>
+    <property name="git.local.branch.behind" value="0"/>
+    <property name="git.dirty" value="false"/>
+    <property name="localRepository" value="/home/dlmm/.m2/repository"/>
+    <property name="jna.loaded" value="true"/>
+    <property name="java.vendor.url.bug" value="https://bugs.launchpad.net/ubuntu/+source/openjdk-17"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="com.zaxxer.hikari.pool_number" value="4"/>
+    <property name="catalina.home" value="/tmp/tomcat.0.9699715840983572104"/>
+    <property name="java.version" value="17.0.19"/>
+    <property name="user.dir" value="/home/dlmm/spring-petclinic"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="git.commit.user.name" value="sumituppal03"/>
+    <property name="git.commit.id.abbrev" value="b3ee2c5"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="PID" value="17845"/>
+    <property name="git.commit.id.describe-short" value="b3ee2c5"/>
+    <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
+    <property name="git.commit.id.describe" value="b3ee2c5"/>
+    <property name="catalina.base" value="/tmp/tomcat.0.6085868445023618713"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib"/>
+    <property name="git.commit.message.short" value="Add test for duplicate pet name during update"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vendor" value="Ubuntu"/>
+    <property name="java.vm.version" value="17.0.19+10-1-22.04.2-Ubuntu"/>
+    <property name="java.specification.maintenance.version" value="1"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="61.0"/>
+    <property name="git.commit.time" value="2026-06-19T12:28:28Z"/>
+    <property name="git.remote.origin.url" value="https://github.com/spring-projects/spring-petclinic.git"/>
+  </properties>
+  <testcase name="findAll" classname="org.springframework.samples.petclinic.PostgresIntegrationTests" time="0.05">
+    <system-out><![CDATA[2026-06-24T00:30:11.436Z  INFO 17845 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.PostgresIntegrationTests]: PostgresIntegrationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-24T00:30:11.451Z  INFO 17845 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.PostgresIntegrationTests
+2026-06-24T00:30:11.452Z  INFO 17845 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.PostgresIntegrationTests]: PostgresIntegrationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-24T00:30:11.456Z  INFO 17845 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.PostgresIntegrationTests
+2026-06-24T00:30:11.477Z  INFO 17845 --- [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+
+
+              |\      _,,,--,,_
+             /,`.-'`'   ._  \-;;,_
+  _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+ |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+ |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+ |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+ |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+ |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+ |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+ ==================================================================/_/_/_/
+
+:: Built with Spring Boot :: 4.1.0
+
+
+2026-06-24T00:30:11.515Z  INFO 17845 --- [           main] o.s.s.p.PostgresIntegrationTests         : Starting PostgresIntegrationTests using Java 17.0.19 with PID 17845 (started by dlmm in /home/dlmm/spring-petclinic)
+2026-06-24T00:30:11.515Z  INFO 17845 --- [           main] o.s.s.p.PostgresIntegrationTests         : The following 1 profile is active: "postgres"
+2026-06-24T00:30:11.522Z  INFO 17845 --- [           main] .s.b.d.c.l.DockerComposeLifecycleManager : Using Docker Compose file /home/dlmm/spring-petclinic/docker-compose.yml
+2026-06-24T00:30:12.272Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Image postgres:18.4 Pulling 
+2026-06-24T00:30:18.547Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Pulling fs layer 0B
+2026-06-24T00:30:18.548Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  02e6c749fab3 Pulling fs layer 0B
+2026-06-24T00:30:18.548Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Pulling fs layer 0B
+2026-06-24T00:30:18.548Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  8ada4aa58337 Pulling fs layer 0B
+2026-06-24T00:30:18.548Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  99225b615c3c Pulling fs layer 0B
+2026-06-24T00:30:18.549Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Pulling fs layer 0B
+2026-06-24T00:30:18.549Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  9ba25a8af2c3 Pulling fs layer 0B
+2026-06-24T00:30:18.549Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Pulling fs layer 0B
+2026-06-24T00:30:18.549Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f61d84e337a8 Pulling fs layer 0B
+2026-06-24T00:30:18.550Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e28f28da5934 Pulling fs layer 0B
+2026-06-24T00:30:18.550Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  986a054d28a4 Pulling fs layer 0B
+2026-06-24T00:30:18.552Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  94a3bfd7d9b8 Pulling fs layer 0B
+2026-06-24T00:30:18.552Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  350845c40593 Pulling fs layer 0B
+2026-06-24T00:30:19.378Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  09dfb7a55bdf Downloading 1.049MB
+2026-06-24T00:30:19.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  09dfb7a55bdf Downloading 2.097MB
+2026-06-24T00:30:19.578Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  09dfb7a55bdf Downloading 3.146MB
+2026-06-24T00:30:19.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f61d84e337a8 Download complete 0B
+2026-06-24T00:30:19.678Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  350845c40593 Download complete 0B
+2026-06-24T00:30:19.679Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e28f28da5934 Download complete 0B
+2026-06-24T00:30:19.679Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  09dfb7a55bdf Downloading 3.146MB
+2026-06-24T00:30:19.680Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  02e6c749fab3 Download complete 0B
+2026-06-24T00:30:19.681Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  986a054d28a4 Download complete 0B
+2026-06-24T00:30:19.682Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  94a3bfd7d9b8 Download complete 0B
+2026-06-24T00:30:19.683Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  dffbe36c2ad2 Download complete 0B
+2026-06-24T00:30:19.775Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  09dfb7a55bdf Downloading 4.194MB
+2026-06-24T00:30:19.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  8ada4aa58337 Download complete 0B
+2026-06-24T00:30:19.877Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  09dfb7a55bdf Downloading 4.194MB
+2026-06-24T00:30:19.978Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  09dfb7a55bdf Downloading 4.194MB
+2026-06-24T00:30:20.076Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  9ba25a8af2c3 Downloading 1.049MB
+2026-06-24T00:30:20.077Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  09dfb7a55bdf Downloading 4.194MB
+2026-06-24T00:30:20.177Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  9ba25a8af2c3 Download complete 0B
+2026-06-24T00:30:20.179Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  09dfb7a55bdf Downloading 4.194MB
+2026-06-24T00:30:20.277Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  09dfb7a55bdf Downloading 4.194MB
+2026-06-24T00:30:20.377Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  09dfb7a55bdf Downloading 5.243MB
+2026-06-24T00:30:20.478Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  09dfb7a55bdf Download complete 0B
+2026-06-24T00:30:20.478Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 1.049MB
+2026-06-24T00:30:20.578Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 1.049MB
+2026-06-24T00:30:20.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 1.049MB
+2026-06-24T00:30:20.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 1.049MB
+2026-06-24T00:30:20.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 1.049MB
+2026-06-24T00:30:20.877Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 2.097MB
+2026-06-24T00:30:20.877Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 1.049MB
+2026-06-24T00:30:20.977Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 1.049MB
+2026-06-24T00:30:20.977Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 1.049MB
+2026-06-24T00:30:20.977Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 2.097MB
+2026-06-24T00:30:21.075Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 1.049MB
+2026-06-24T00:30:21.077Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 1.049MB
+2026-06-24T00:30:21.077Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 2.097MB
+2026-06-24T00:30:21.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 1.049MB
+2026-06-24T00:30:21.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 1.049MB
+2026-06-24T00:30:21.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 2.097MB
+2026-06-24T00:30:21.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 1.049MB
+2026-06-24T00:30:21.277Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 1.049MB
+2026-06-24T00:30:21.277Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 1.049MB
+2026-06-24T00:30:21.277Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 2.392MB
+2026-06-24T00:30:21.277Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 1.049MB
+2026-06-24T00:30:21.277Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  99225b615c3c Downloading 1.049MB
+2026-06-24T00:30:21.377Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 1.049MB
+2026-06-24T00:30:21.377Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  99225b615c3c Downloading 1.049MB
+2026-06-24T00:30:21.377Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 1.049MB
+2026-06-24T00:30:21.377Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 1.049MB
+2026-06-24T00:30:21.377Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 3.146MB
+2026-06-24T00:30:21.475Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  99225b615c3c Download complete 0B
+2026-06-24T00:30:21.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 2.097MB
+2026-06-24T00:30:21.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 1.049MB
+2026-06-24T00:30:21.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 3.146MB
+2026-06-24T00:30:21.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 1.049MB
+2026-06-24T00:30:21.577Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 2.097MB
+2026-06-24T00:30:21.577Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 1.049MB
+2026-06-24T00:30:21.577Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 3.146MB
+2026-06-24T00:30:21.577Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 1.049MB
+2026-06-24T00:30:21.675Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 2.097MB
+2026-06-24T00:30:21.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 1.049MB
+2026-06-24T00:30:21.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 4.194MB
+2026-06-24T00:30:21.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 1.049MB
+2026-06-24T00:30:21.777Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 2.097MB
+2026-06-24T00:30:21.777Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 1.049MB
+2026-06-24T00:30:21.777Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 4.194MB
+2026-06-24T00:30:21.777Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 1.049MB
+2026-06-24T00:30:21.877Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 1.049MB
+2026-06-24T00:30:21.878Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 4.194MB
+2026-06-24T00:30:21.878Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 1.049MB
+2026-06-24T00:30:21.878Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 2.097MB
+2026-06-24T00:30:21.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 5.243MB
+2026-06-24T00:30:21.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 1.049MB
+2026-06-24T00:30:21.977Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 2.097MB
+2026-06-24T00:30:21.977Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 2.097MB
+2026-06-24T00:30:22.075Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 5.243MB
+2026-06-24T00:30:22.075Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 1.049MB
+2026-06-24T00:30:22.075Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 3.146MB
+2026-06-24T00:30:22.075Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 2.097MB
+2026-06-24T00:30:22.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 3.146MB
+2026-06-24T00:30:22.177Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 2.097MB
+2026-06-24T00:30:22.178Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 5.243MB
+2026-06-24T00:30:22.178Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 1.049MB
+2026-06-24T00:30:22.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 3.146MB
+2026-06-24T00:30:22.277Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 2.097MB
+2026-06-24T00:30:22.277Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 5.243MB
+2026-06-24T00:30:22.277Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 2.097MB
+2026-06-24T00:30:22.377Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 6.291MB
+2026-06-24T00:30:22.378Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 2.097MB
+2026-06-24T00:30:22.379Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 3.146MB
+2026-06-24T00:30:22.379Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 2.097MB
+2026-06-24T00:30:22.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 3.146MB
+2026-06-24T00:30:22.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 2.097MB
+2026-06-24T00:30:22.477Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 6.291MB
+2026-06-24T00:30:22.477Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 2.097MB
+2026-06-24T00:30:22.576Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 3.146MB
+2026-06-24T00:30:22.576Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 2.097MB
+2026-06-24T00:30:22.577Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 6.291MB
+2026-06-24T00:30:22.577Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 2.097MB
+2026-06-24T00:30:22.677Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 7.34MB
+2026-06-24T00:30:22.677Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 2.097MB
+2026-06-24T00:30:22.677Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 4.194MB
+2026-06-24T00:30:22.677Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 3.146MB
+2026-06-24T00:30:22.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 7.34MB
+2026-06-24T00:30:22.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 2.097MB
+2026-06-24T00:30:22.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 4.194MB
+2026-06-24T00:30:22.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 3.146MB
+2026-06-24T00:30:22.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 7.34MB
+2026-06-24T00:30:22.877Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 2.097MB
+2026-06-24T00:30:22.877Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 4.194MB
+2026-06-24T00:30:22.877Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 3.146MB
+2026-06-24T00:30:22.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 4.194MB
+2026-06-24T00:30:22.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 3.146MB
+2026-06-24T00:30:22.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 7.34MB
+2026-06-24T00:30:22.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 2.097MB
+2026-06-24T00:30:23.077Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 4.194MB
+2026-06-24T00:30:23.078Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 3.146MB
+2026-06-24T00:30:23.078Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 7.34MB
+2026-06-24T00:30:23.078Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 3.146MB
+2026-06-24T00:30:23.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 8.389MB
+2026-06-24T00:30:23.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 3.146MB
+2026-06-24T00:30:23.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 4.194MB
+2026-06-24T00:30:23.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 3.146MB
+2026-06-24T00:30:23.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 8.389MB
+2026-06-24T00:30:23.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 3.146MB
+2026-06-24T00:30:23.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 5.243MB
+2026-06-24T00:30:23.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 3.146MB
+2026-06-24T00:30:23.376Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 5.243MB
+2026-06-24T00:30:23.377Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 3.146MB
+2026-06-24T00:30:23.377Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 9.437MB
+2026-06-24T00:30:23.377Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 3.146MB
+2026-06-24T00:30:23.475Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 5.243MB
+2026-06-24T00:30:23.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 4.194MB
+2026-06-24T00:30:23.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 9.437MB
+2026-06-24T00:30:23.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 3.146MB
+2026-06-24T00:30:23.576Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 9.437MB
+2026-06-24T00:30:23.576Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 3.146MB
+2026-06-24T00:30:23.576Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 5.243MB
+2026-06-24T00:30:23.576Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 4.194MB
+2026-06-24T00:30:23.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 4.194MB
+2026-06-24T00:30:23.677Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 9.437MB
+2026-06-24T00:30:23.677Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 3.146MB
+2026-06-24T00:30:23.677Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 5.243MB
+2026-06-24T00:30:23.777Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 10.49MB
+2026-06-24T00:30:23.778Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 3.146MB
+2026-06-24T00:30:23.778Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 6.291MB
+2026-06-24T00:30:23.778Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 4.194MB
+2026-06-24T00:30:23.875Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 10.49MB
+2026-06-24T00:30:23.875Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 3.146MB
+2026-06-24T00:30:23.875Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 6.291MB
+2026-06-24T00:30:23.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 4.194MB
+2026-06-24T00:30:23.978Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 11.53MB
+2026-06-24T00:30:23.978Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 3.146MB
+2026-06-24T00:30:23.979Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 6.291MB
+2026-06-24T00:30:23.979Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 4.194MB
+2026-06-24T00:30:24.076Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 6.291MB
+2026-06-24T00:30:24.080Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 4.194MB
+2026-06-24T00:30:24.080Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 11.53MB
+2026-06-24T00:30:24.080Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 4.194MB
+2026-06-24T00:30:24.179Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 6.291MB
+2026-06-24T00:30:24.179Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 5.243MB
+2026-06-24T00:30:24.180Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 11.53MB
+2026-06-24T00:30:24.180Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 4.194MB
+2026-06-24T00:30:24.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 7.34MB
+2026-06-24T00:30:24.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 5.243MB
+2026-06-24T00:30:24.277Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 11.53MB
+2026-06-24T00:30:24.277Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 4.194MB
+2026-06-24T00:30:24.375Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 12.58MB
+2026-06-24T00:30:24.376Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 4.194MB
+2026-06-24T00:30:24.376Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 7.34MB
+2026-06-24T00:30:24.376Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 5.243MB
+2026-06-24T00:30:24.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 12.58MB
+2026-06-24T00:30:24.477Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 4.194MB
+2026-06-24T00:30:24.477Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 7.34MB
+2026-06-24T00:30:24.477Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 5.243MB
+2026-06-24T00:30:24.577Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Downloading 7.34MB
+2026-06-24T00:30:24.577Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 5.243MB
+2026-06-24T00:30:24.577Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 12.58MB
+2026-06-24T00:30:24.577Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 4.194MB
+2026-06-24T00:30:24.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 13.63MB
+2026-06-24T00:30:24.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 4.194MB
+2026-06-24T00:30:24.677Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Download complete 0B
+2026-06-24T00:30:24.679Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 5.243MB
+2026-06-24T00:30:24.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 5.243MB
+2026-06-24T00:30:24.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 13.63MB
+2026-06-24T00:30:24.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 4.194MB
+2026-06-24T00:30:24.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 14.68MB
+2026-06-24T00:30:24.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 4.194MB
+2026-06-24T00:30:24.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 6.291MB
+2026-06-24T00:30:24.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 6.291MB
+2026-06-24T00:30:24.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 14.68MB
+2026-06-24T00:30:24.977Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 5.243MB
+2026-06-24T00:30:25.077Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 14.68MB
+2026-06-24T00:30:25.078Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 5.243MB
+2026-06-24T00:30:25.078Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 6.291MB
+2026-06-24T00:30:25.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 6.291MB
+2026-06-24T00:30:25.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 15.73MB
+2026-06-24T00:30:25.177Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 5.243MB
+2026-06-24T00:30:25.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 15.73MB
+2026-06-24T00:30:25.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 5.243MB
+2026-06-24T00:30:25.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 6.291MB
+2026-06-24T00:30:25.375Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 16.78MB
+2026-06-24T00:30:25.376Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 5.243MB
+2026-06-24T00:30:25.376Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 7.34MB
+2026-06-24T00:30:25.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 7.34MB
+2026-06-24T00:30:25.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 16.78MB
+2026-06-24T00:30:25.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 5.243MB
+2026-06-24T00:30:25.575Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 16.78MB
+2026-06-24T00:30:25.576Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 5.243MB
+2026-06-24T00:30:25.576Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 7.34MB
+2026-06-24T00:30:25.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 17.83MB
+2026-06-24T00:30:25.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 5.243MB
+2026-06-24T00:30:25.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 7.34MB
+2026-06-24T00:30:25.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 7.34MB
+2026-06-24T00:30:25.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 17.83MB
+2026-06-24T00:30:25.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 5.243MB
+2026-06-24T00:30:25.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 8.389MB
+2026-06-24T00:30:25.877Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 17.83MB
+2026-06-24T00:30:25.877Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 5.243MB
+2026-06-24T00:30:25.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 18.87MB
+2026-06-24T00:30:25.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 5.243MB
+2026-06-24T00:30:25.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 8.389MB
+2026-06-24T00:30:26.076Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 18.87MB
+2026-06-24T00:30:26.076Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Downloading 5.243MB
+2026-06-24T00:30:26.076Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 8.389MB
+2026-06-24T00:30:26.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Download complete 0B
+2026-06-24T00:30:26.178Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 8.389MB
+2026-06-24T00:30:26.178Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 19.92MB
+2026-06-24T00:30:26.275Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 20.97MB
+2026-06-24T00:30:26.275Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 8.389MB
+2026-06-24T00:30:26.376Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 20.97MB
+2026-06-24T00:30:26.377Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 9.437MB
+2026-06-24T00:30:26.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 9.437MB
+2026-06-24T00:30:26.477Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 22.02MB
+2026-06-24T00:30:26.576Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 9.437MB
+2026-06-24T00:30:26.576Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 22.02MB
+2026-06-24T00:30:26.675Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 9.437MB
+2026-06-24T00:30:26.675Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 22.02MB
+2026-06-24T00:30:26.777Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 9.437MB
+2026-06-24T00:30:26.777Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 23.07MB
+2026-06-24T00:30:26.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 23.07MB
+2026-06-24T00:30:26.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 9.437MB
+2026-06-24T00:30:26.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 9.437MB
+2026-06-24T00:30:26.977Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 24.12MB
+2026-06-24T00:30:27.076Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 24.12MB
+2026-06-24T00:30:27.076Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 10.49MB
+2026-06-24T00:30:27.177Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 10.49MB
+2026-06-24T00:30:27.177Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 25.17MB
+2026-06-24T00:30:27.275Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 10.49MB
+2026-06-24T00:30:27.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 25.17MB
+2026-06-24T00:30:27.376Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 10.49MB
+2026-06-24T00:30:27.376Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 26.21MB
+2026-06-24T00:30:27.475Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 27.26MB
+2026-06-24T00:30:27.475Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 11.53MB
+2026-06-24T00:30:27.575Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 11.53MB
+2026-06-24T00:30:27.575Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 27.26MB
+2026-06-24T00:30:27.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 11.53MB
+2026-06-24T00:30:27.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 28.31MB
+2026-06-24T00:30:27.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 11.53MB
+2026-06-24T00:30:27.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 28.31MB
+2026-06-24T00:30:27.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Downloading 29.36MB
+2026-06-24T00:30:27.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 11.53MB
+2026-06-24T00:30:27.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Download complete 0B
+2026-06-24T00:30:27.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 12.58MB
+2026-06-24T00:30:27.986Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Extracting 1B
+2026-06-24T00:30:28.075Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 12.58MB
+2026-06-24T00:30:28.085Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Extracting 1B
+2026-06-24T00:30:28.175Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 12.58MB
+2026-06-24T00:30:28.189Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Extracting 1B
+2026-06-24T00:30:28.275Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 12.58MB
+2026-06-24T00:30:28.284Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Extracting 1B
+2026-06-24T00:30:28.375Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 12.58MB
+2026-06-24T00:30:28.386Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Extracting 1B
+2026-06-24T00:30:28.475Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 13.63MB
+2026-06-24T00:30:28.493Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Extracting 1B
+2026-06-24T00:30:28.576Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 13.63MB
+2026-06-24T00:30:28.585Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Extracting 1B
+2026-06-24T00:30:28.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 13.63MB
+2026-06-24T00:30:28.687Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Extracting 1B
+2026-06-24T00:30:28.775Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 13.63MB
+2026-06-24T00:30:28.784Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Extracting 1B
+2026-06-24T00:30:28.875Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 13.63MB
+2026-06-24T00:30:28.887Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Extracting 1B
+2026-06-24T00:30:28.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 14.68MB
+2026-06-24T00:30:29.019Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Extracting 2B
+2026-06-24T00:30:29.076Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 14.68MB
+2026-06-24T00:30:29.083Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Extracting 2B
+2026-06-24T00:30:29.175Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 14.68MB
+2026-06-24T00:30:29.181Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  02e6c749fab3 Pull complete 0B
+2026-06-24T00:30:29.186Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Extracting 1B
+2026-06-24T00:30:29.188Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  72c03230f136 Pull complete 0B
+2026-06-24T00:30:29.275Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 14.68MB
+2026-06-24T00:30:29.283Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Extracting 1B
+2026-06-24T00:30:29.375Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 14.68MB
+2026-06-24T00:30:29.384Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  99225b615c3c Pull complete 0B
+2026-06-24T00:30:29.385Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Extracting 1B
+2026-06-24T00:30:29.386Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e391a38c1c31 Pull complete 0B
+2026-06-24T00:30:29.477Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 15.73MB
+2026-06-24T00:30:29.492Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Extracting 1B
+2026-06-24T00:30:29.576Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 15.73MB
+2026-06-24T00:30:29.586Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Extracting 1B
+2026-06-24T00:30:29.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 15.73MB
+2026-06-24T00:30:29.686Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  9ba25a8af2c3 Pull complete 0B
+2026-06-24T00:30:29.687Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f6e1d32857ac Pull complete 0B
+2026-06-24T00:30:29.775Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 15.73MB
+2026-06-24T00:30:29.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  f61d84e337a8 Pull complete 0B
+2026-06-24T00:30:29.780Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  8ada4aa58337 Pull complete 0B
+2026-06-24T00:30:29.875Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 16.78MB
+2026-06-24T00:30:29.975Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 16.78MB
+2026-06-24T00:30:30.075Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 16.78MB
+2026-06-24T00:30:30.175Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 16.78MB
+2026-06-24T00:30:30.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 17.83MB
+2026-06-24T00:30:30.375Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 17.83MB
+2026-06-24T00:30:30.475Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 17.83MB
+2026-06-24T00:30:30.575Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 18.87MB
+2026-06-24T00:30:30.675Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 18.87MB
+2026-06-24T00:30:30.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 18.87MB
+2026-06-24T00:30:30.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 19.92MB
+2026-06-24T00:30:30.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 19.92MB
+2026-06-24T00:30:31.075Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 20.97MB
+2026-06-24T00:30:31.175Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 20.97MB
+2026-06-24T00:30:31.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 22.02MB
+2026-06-24T00:30:31.376Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 22.02MB
+2026-06-24T00:30:31.475Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 23.07MB
+2026-06-24T00:30:31.575Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 23.07MB
+2026-06-24T00:30:31.675Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 24.12MB
+2026-06-24T00:30:31.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 25.17MB
+2026-06-24T00:30:31.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 25.17MB
+2026-06-24T00:30:31.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 26.21MB
+2026-06-24T00:30:32.075Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 27.26MB
+2026-06-24T00:30:32.175Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 27.26MB
+2026-06-24T00:30:32.275Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 28.31MB
+2026-06-24T00:30:32.379Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 29.36MB
+2026-06-24T00:30:32.477Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 30.41MB
+2026-06-24T00:30:32.576Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 31.46MB
+2026-06-24T00:30:32.675Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 31.46MB
+2026-06-24T00:30:32.775Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 32.51MB
+2026-06-24T00:30:32.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 33.55MB
+2026-06-24T00:30:32.975Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 34.6MB
+2026-06-24T00:30:33.076Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 35.65MB
+2026-06-24T00:30:33.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 36.7MB
+2026-06-24T00:30:33.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 36.7MB
+2026-06-24T00:30:33.376Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 37.75MB
+2026-06-24T00:30:33.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 37.75MB
+2026-06-24T00:30:33.576Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 37.75MB
+2026-06-24T00:30:33.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 39.85MB
+2026-06-24T00:30:33.775Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 40.89MB
+2026-06-24T00:30:33.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 41.94MB
+2026-06-24T00:30:33.975Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 42.99MB
+2026-06-24T00:30:34.076Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 44.04MB
+2026-06-24T00:30:34.175Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 44.04MB
+2026-06-24T00:30:34.275Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 45.09MB
+2026-06-24T00:30:34.375Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 46.14MB
+2026-06-24T00:30:34.475Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 46.14MB
+2026-06-24T00:30:34.576Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 47.19MB
+2026-06-24T00:30:34.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 48.23MB
+2026-06-24T00:30:34.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 48.23MB
+2026-06-24T00:30:34.877Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 49.28MB
+2026-06-24T00:30:34.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 49.28MB
+2026-06-24T00:30:35.075Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 50.33MB
+2026-06-24T00:30:35.177Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 51.38MB
+2026-06-24T00:30:35.277Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 52.43MB
+2026-06-24T00:30:35.377Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 52.43MB
+2026-06-24T00:30:35.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 53.48MB
+2026-06-24T00:30:35.576Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 53.48MB
+2026-06-24T00:30:35.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 54.53MB
+2026-06-24T00:30:35.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 54.53MB
+2026-06-24T00:30:35.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 55.57MB
+2026-06-24T00:30:35.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 56.62MB
+2026-06-24T00:30:36.078Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 57.67MB
+2026-06-24T00:30:36.177Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 57.67MB
+2026-06-24T00:30:36.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 58.72MB
+2026-06-24T00:30:36.375Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 59.77MB
+2026-06-24T00:30:36.475Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 59.77MB
+2026-06-24T00:30:36.575Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 60.82MB
+2026-06-24T00:30:36.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 61.87MB
+2026-06-24T00:30:36.775Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 61.87MB
+2026-06-24T00:30:36.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 62.91MB
+2026-06-24T00:30:36.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 63.96MB
+2026-06-24T00:30:37.076Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 65.01MB
+2026-06-24T00:30:37.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 65.01MB
+2026-06-24T00:30:37.275Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 66.06MB
+2026-06-24T00:30:37.377Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 66.06MB
+2026-06-24T00:30:37.477Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 67.11MB
+2026-06-24T00:30:37.575Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 68.16MB
+2026-06-24T00:30:37.675Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 68.16MB
+2026-06-24T00:30:37.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 70.25MB
+2026-06-24T00:30:37.875Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 70.25MB
+2026-06-24T00:30:37.975Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 71.3MB
+2026-06-24T00:30:38.076Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 71.3MB
+2026-06-24T00:30:38.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 71.3MB
+2026-06-24T00:30:38.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 73.4MB
+2026-06-24T00:30:38.376Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 73.4MB
+2026-06-24T00:30:38.477Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 73.4MB
+2026-06-24T00:30:38.577Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 73.4MB
+2026-06-24T00:30:38.675Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 73.4MB
+2026-06-24T00:30:38.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 74.45MB
+2026-06-24T00:30:38.875Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 75.5MB
+2026-06-24T00:30:38.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 76.55MB
+2026-06-24T00:30:39.076Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 77.59MB
+2026-06-24T00:30:39.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 78.64MB
+2026-06-24T00:30:39.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 78.64MB
+2026-06-24T00:30:39.378Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 78.64MB
+2026-06-24T00:30:39.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 79.69MB
+2026-06-24T00:30:39.577Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 79.69MB
+2026-06-24T00:30:39.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 80.74MB
+2026-06-24T00:30:39.777Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 81.79MB
+2026-06-24T00:30:39.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 82.84MB
+2026-06-24T00:30:39.975Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 83.89MB
+2026-06-24T00:30:40.078Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 84.93MB
+2026-06-24T00:30:40.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 84.93MB
+2026-06-24T00:30:40.275Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 85.98MB
+2026-06-24T00:30:40.376Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 85.98MB
+2026-06-24T00:30:40.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 88.08MB
+2026-06-24T00:30:40.575Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 88.08MB
+2026-06-24T00:30:40.677Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 89.13MB
+2026-06-24T00:30:40.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 89.13MB
+2026-06-24T00:30:40.875Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 90.18MB
+2026-06-24T00:30:40.975Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 90.18MB
+2026-06-24T00:30:41.076Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 91.23MB
+2026-06-24T00:30:41.175Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 92.27MB
+2026-06-24T00:30:41.277Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 93.32MB
+2026-06-24T00:30:41.376Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 93.32MB
+2026-06-24T00:30:41.475Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 94.37MB
+2026-06-24T00:30:41.575Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 95.42MB
+2026-06-24T00:30:41.677Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 95.42MB
+2026-06-24T00:30:41.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 96.47MB
+2026-06-24T00:30:41.877Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 96.47MB
+2026-06-24T00:30:41.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 97.52MB
+2026-06-24T00:30:42.076Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 98.57MB
+2026-06-24T00:30:42.175Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 99.61MB
+2026-06-24T00:30:42.277Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 99.61MB
+2026-06-24T00:30:42.376Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 100.7MB
+2026-06-24T00:30:42.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 101.7MB
+2026-06-24T00:30:42.576Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 101.7MB
+2026-06-24T00:30:42.676Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 102.8MB
+2026-06-24T00:30:42.775Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 103.8MB
+2026-06-24T00:30:42.876Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 103.8MB
+2026-06-24T00:30:42.976Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 104.9MB
+2026-06-24T00:30:43.075Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 105.9MB
+2026-06-24T00:30:43.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 105.9MB
+2026-06-24T00:30:43.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 107MB
+2026-06-24T00:30:43.376Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 108MB
+2026-06-24T00:30:43.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 108MB
+2026-06-24T00:30:43.577Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 109.1MB
+2026-06-24T00:30:43.677Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 109.1MB
+2026-06-24T00:30:43.776Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 110.1MB
+2026-06-24T00:30:43.877Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 111.1MB
+2026-06-24T00:30:43.975Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 112.2MB
+2026-06-24T00:30:44.077Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 112.2MB
+2026-06-24T00:30:44.176Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 113.2MB
+2026-06-24T00:30:44.276Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 113.2MB
+2026-06-24T00:30:44.376Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Downloading 114.3MB
+2026-06-24T00:30:44.476Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Download complete 0B
+2026-06-24T00:30:44.479Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 1B
+2026-06-24T00:30:44.579Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 1B
+2026-06-24T00:30:44.678Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 1B
+2026-06-24T00:30:44.777Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 1B
+2026-06-24T00:30:44.884Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 1B
+2026-06-24T00:30:44.979Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 1B
+2026-06-24T00:30:45.085Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 1B
+2026-06-24T00:30:45.181Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 1B
+2026-06-24T00:30:45.284Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 1B
+2026-06-24T00:30:45.386Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 1B
+2026-06-24T00:30:45.478Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 1B
+2026-06-24T00:30:45.586Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 2B
+2026-06-24T00:30:45.683Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 2B
+2026-06-24T00:30:45.811Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 2B
+2026-06-24T00:30:45.886Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 2B
+2026-06-24T00:30:45.989Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 2B
+2026-06-24T00:30:46.081Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 2B
+2026-06-24T00:30:46.182Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 2B
+2026-06-24T00:30:46.280Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 2B
+2026-06-24T00:30:46.405Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 2B
+2026-06-24T00:30:46.478Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 2B
+2026-06-24T00:30:46.620Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 3B
+2026-06-24T00:30:46.686Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 3B
+2026-06-24T00:30:46.792Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 3B
+2026-06-24T00:30:46.887Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 3B
+2026-06-24T00:30:46.983Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 3B
+2026-06-24T00:30:47.083Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 3B
+2026-06-24T00:30:47.196Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 3B
+2026-06-24T00:30:47.279Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Extracting 3B
+2026-06-24T00:30:47.380Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  c842cf8435b1 Pull complete 0B
+2026-06-24T00:30:47.454Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  350845c40593 Pull complete 0B
+2026-06-24T00:30:47.456Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  e28f28da5934 Pull complete 0B
+2026-06-24T00:30:47.457Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  986a054d28a4 Pull complete 0B
+2026-06-24T00:30:47.457Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  94a3bfd7d9b8 Pull complete 0B
+2026-06-24T00:30:47.458Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Image postgres:18.4 Pulled 
+2026-06-24T00:30:47.530Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Network spring-petclinic_default Creating 
+2026-06-24T00:30:47.590Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Network spring-petclinic_default Created 
+2026-06-24T00:30:47.592Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container spring-petclinic-postgres-1 Creating 
+2026-06-24T00:30:47.863Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container spring-petclinic-postgres-1 Created 
+2026-06-24T00:30:47.875Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container spring-petclinic-postgres-1 Starting 
+2026-06-24T00:30:48.187Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container spring-petclinic-postgres-1 Started 
+2026-06-24T00:30:48.187Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container spring-petclinic-postgres-1 Waiting 
+2026-06-24T00:30:48.690Z  INFO 17845 --- [utReader-stderr] o.s.boot.docker.compose.core.DockerCli   :  Container spring-petclinic-postgres-1 Healthy 
+2026-06-24T00:30:50.363Z  INFO 17845 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-24T00:30:50.375Z  INFO 17845 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 3 JPA repository interfaces.
+2026-06-24T00:30:50.512Z  INFO 17845 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-06-24T00:30:50.513Z  INFO 17845 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-24T00:30:50.513Z  INFO 17845 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-06-24T00:30:50.536Z  INFO 17845 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 397 ms
+2026-06-24T00:30:50.630Z  INFO 17845 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2026-06-24T00:30:50.841Z  INFO 17845 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection org.postgresql.jdbc.PgConnection@512f5e5b
+2026-06-24T00:30:50.841Z  INFO 17845 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2026-06-24T00:30:50.930Z  INFO 17845 --- [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-24T00:30:50.950Z  INFO 17845 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-24T00:30:50.983Z  INFO 17845 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://127.0.0.1:5432/petclinic]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 18.4
+	Default catalog/schema: petclinic/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-24T00:30:51.290Z  INFO 17845 --- [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-24T00:30:51.290Z  INFO 17845 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-24T00:30:51.580Z  INFO 17845 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 13 endpoints beneath base path '/actuator'
+2026-06-24T00:30:51.603Z  INFO 17845 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 34465 (http) with context path '/'
+2026-06-24T00:30:51.612Z  INFO 17845 --- [           main] o.s.s.p.PostgresIntegrationTests         : Started PostgresIntegrationTests in 40.136 seconds (process running for 138.79)
+]]></system-out>
+  </testcase>
+  <testcase name="ownerDetails" classname="org.springframework.samples.petclinic.PostgresIntegrationTests" time="0.125">
+    <system-out><![CDATA[2026-06-24T00:30:51.682Z  INFO 17845 --- [o-auto-3-exec-1] o.a.c.c.C.[Tomcat-2].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-24T00:30:51.682Z  INFO 17845 --- [o-auto-3-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-24T00:30:51.685Z  INFO 17845 --- [o-auto-3-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+]]></system-out>
+  </testcase>
+</testsuite>
