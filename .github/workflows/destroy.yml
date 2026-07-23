@@ -44,6 +44,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
+      # ============================================
+      # 1. SUPPRESSION DES RESSOURCES AWS
+      # ============================================
       - name: Delete ECR Repository
         run: |
           echo "🗑️ Deleting ECR repository..."
@@ -108,19 +111,40 @@ jobs:
             echo "ℹ️ Target Group already deleted"
           fi
 
+      # ============================================
+      # 2. RESET COMPLET DU BUCKET S3 AVANT TERRAFORM INIT
+      # ============================================
       - name: Reset S3 Backend
         run: |
           echo "🗑️ RESET COMPLET DU BACKEND S3"
           BUCKET="${{ env.BUCKET_NAME }}"
-          aws s3 rb s3://${BUCKET} --force 2>/dev/null || echo "ℹ️ Bucket already deleted"
+
+          # Supprimer le bucket avec force
+          echo "📤 Suppression du bucket S3..."
+          aws s3 rb s3://${BUCKET} --force 2>/dev/null || echo "ℹ️ Bucket déjà supprimé"
+
+          # Attendre 5 secondes
           sleep 5
+
+          # Recréer le bucket
           echo "📥 Recréation du bucket S3..."
-          aws s3api create-bucket --bucket ${BUCKET} --region ${{ env.AWS_REGION }} || echo "ℹ️ Bucket creation skipped"
+          aws s3api create-bucket --bucket ${BUCKET} --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Bucket existe déjà"
+
+          # Activer le versionnement
           aws s3api put-bucket-versioning --bucket ${BUCKET} --versioning-configuration Status=Enabled 2>/dev/null || true
+
+          # Activer le chiffrement
           aws s3api put-bucket-encryption --bucket ${BUCKET} --server-side-encryption-configuration '{"Rules": [{"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]}' 2>/dev/null || true
-          aws dynamodb delete-item --table-name terraform-locks --key '{"LockID": {"S": "${BUCKET}/dev/terraform.tfstate"}}' --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Lock already deleted"
+
+          # Supprimer le verrou DynamoDB
+          echo "🗑️ Suppression du verrou DynamoDB..."
+          aws dynamodb delete-item --table-name terraform-locks --key '{"LockID": {"S": "${BUCKET}/dev/terraform.tfstate"}}' --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Verrou déjà supprimé"
+
           echo "✅ Backend S3 réinitialisé"
 
+      # ============================================
+      # 3. NETTOYAGE LOCAL
+      # ============================================
       - name: Clean Local Terraform State
         working-directory: ${{ env.TERRAFORM_PATH }}
         run: |
@@ -128,6 +152,9 @@ jobs:
           rm -rf .terraform .terraform.lock.hcl terraform.tfstate* .terraform.tfstate.lock.info 2>/dev/null || true
           echo "✅ État local nettoyé"
 
+      # ============================================
+      # 4. TERRAFORM INIT ET DESTROY
+      # ============================================
       - name: Terraform Init
         working-directory: ${{ env.TERRAFORM_PATH }}
         run: terraform init -upgrade -reconfigure
