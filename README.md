@@ -21,3 +21,6 @@ Le pipeline va tout recréer automatiquement.
 
 ## ✅ FINAL : All resources destroyed
 Toutes les ressources AWS ont été supprimées avec succès.
+
+## Fix : Terraform state reset, resources cleaned
+L'état Terraform a été réinitialisé.
