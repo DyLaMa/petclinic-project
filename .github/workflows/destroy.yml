@@ -45,7 +45,19 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       # ============================================
-      # 1. SUPPRESSION DES RESSOURCES AWS
+      # 1. SUPPRESSION DU BUCKET S3 (FORCÉ)
+      # ============================================
+      - name: Delete S3 Bucket Completely
+        run: |
+          echo "🗑️ SUPPRESSION COMPLÈTE DU BUCKET S3"
+          BUCKET="${{ env.BUCKET_NAME }}"
+          
+          # Supprimer le bucket avec force
+          aws s3 rb s3://${BUCKET} --force 2>/dev/null || echo "ℹ️ Bucket already deleted"
+          echo "✅ Bucket S3 supprimé"
+
+      # ============================================
+      # 2. SUPPRESSION DES RESSOURCES AWS
       # ============================================
       - name: Delete ECR Repository
         run: |
@@ -112,44 +124,6 @@ jobs:
           fi
 
       # ============================================
-      # 2. SUPPRESSION COMPLÈTE DE L'ÉTAT S3
-      # ============================================
-      - name: Delete S3 State Files
-        run: |
-          echo "🗑️ SUPPRESSION COMPLÈTE DE L'ÉTAT S3"
-          BUCKET="${{ env.BUCKET_NAME }}"
-
-          # Supprimer toutes les versions des fichiers d'état
-          echo "📤 Suppression de toutes les versions..."
-          aws s3api list-object-versions \
-            --bucket ${BUCKET} \
-            --region ${{ env.AWS_REGION }} \
-            --query 'Versions[?contains(Key, `terraform.tfstate`)].{Key:Key,VersionId:VersionId}' \
-            --output text | while read key version; do
-              if [ -n "$version" ] && [ "$version" != "null" ] && [ "$version" != "None" ]; then
-                aws s3api delete-object --bucket ${BUCKET} --key "$key" --version-id "$version" --region ${{ env.AWS_REGION }}
-              fi
-            done
-
-          # Supprimer les marqueurs de suppression
-          aws s3api list-object-versions \
-            --bucket ${BUCKET} \
-            --region ${{ env.AWS_REGION }} \
-            --query 'DeleteMarkers[?contains(Key, `terraform.tfstate`)].{Key:Key,VersionId:VersionId}' \
-            --output text | while read key version; do
-              if [ -n "$version" ] && [ "$version" != "null" ] && [ "$version" != "None" ]; then
-                aws s3api delete-object --bucket ${BUCKET} --key "$key" --version-id "$version" --region ${{ env.AWS_REGION }}
-              fi
-            done
-
-          # Supprimer les fichiers d'état normaux
-          aws s3 rm s3://${BUCKET}/dev/terraform.tfstate 2>/dev/null || true
-          aws s3 rm s3://${BUCKET}/dev/terraform.tfstate.backup 2>/dev/null || true
-          aws s3 rm s3://${BUCKET}/dev/terraform.tfstate.lock.info 2>/dev/null || true
-
-          echo "✅ État S3 supprimé"
-
-      # ============================================
       # 3. SUPPRESSION DU VERROU DYNAMODB
       # ============================================
       - name: Delete DynamoDB Lock
@@ -172,11 +146,16 @@ jobs:
           echo "✅ État local nettoyé"
 
       # ============================================
-      # 5. TERRAFORM INIT
+      # 5. TERRAFORM INIT (ne pas utiliser le backend S3)
       # ============================================
-      - name: Terraform Init
+      - name: Terraform Init (local state)
         working-directory: ${{ env.TERRAFORM_PATH }}
-        run: terraform init -upgrade -reconfigure
+        run: |
+          # Désactiver temporairement le backend S3
+          mv main.tf main.tf.backup
+          cat main.tf.backup | sed '/backend "s3" {/,/}/d' > main.tf
+          terraform init -upgrade
+          mv main.tf.backup main.tf
 
       - name: Display Completion
         run: |
@@ -190,7 +169,7 @@ jobs:
           echo "✅ RDS Subnet Group: deleted"
           echo "✅ Target Group: deleted"
           echo "✅ DynamoDB lock: deleted"
-          echo "✅ S3 state: deleted"
+          echo "✅ S3 bucket: deleted"
           echo "✅ Local state: cleaned"
           echo "============================================"
           echo "ℹ️ You can now run 'Deploy PetClinic' to redeploy"
