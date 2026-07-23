@@ -8,3 +8,6 @@ L'utilisateur github-actions-user utilise la politique github-actions-full-polic
 
 ## Reconstruction après nettoyage
 Le pipeline va tout reconstruire automatiquement.
+
+## Fix : Recreate S3 and DynamoDB completely
+Le bucket S3 et la table DynamoDB ont été recréés.
