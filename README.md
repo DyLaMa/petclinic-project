@@ -18,3 +18,6 @@ Le repository ECR a été supprimé manuellement.
 ## FINAL : Clean resources and trigger pipeline
 Toutes les ressources AWS ont été supprimées.
 Le pipeline va tout recréer automatiquement.
+
+## ✅ FINAL : All resources destroyed
+Toutes les ressources AWS ont été supprimées avec succès.
