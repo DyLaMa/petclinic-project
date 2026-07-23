@@ -35,6 +35,21 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: Create ECR Repository if not exists
+        run: |
+          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+          REPO_NAME="${{ env.ECR_REPOSITORY }}"
+          if aws ecr describe-repositories --repository-names ${REPO_NAME} --region ${{ env.AWS_REGION }} 2>/dev/null; then
+            echo "Repository ${REPO_NAME} already exists."
+          else
+            echo "Creating repository ${REPO_NAME}..."
+            aws ecr create-repository \
+              --repository-name ${REPO_NAME} \
+              --region ${{ env.AWS_REGION }} \
+              --image-scanning-configuration scanOnPush=true
+            echo "Repository ${REPO_NAME} created."
+          fi
+
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
