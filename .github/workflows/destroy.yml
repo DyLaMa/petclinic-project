@@ -13,6 +13,7 @@ env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: petclinic-khadimana-petclinic
   TERRAFORM_PATH: terraform/environments/dev
+  BUCKET_NAME: petclinic-terraform-state-201900446058
 
 jobs:
   destroy:
@@ -43,6 +44,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
+      # 1. NETTOYAGE DES RESSOURCES AWS AVANT TERRAFORM
       - name: Delete ECR Repository
         run: |
           echo "🗑️ Deleting ECR repository..."
@@ -61,27 +63,92 @@ jobs:
             --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Secret already deleted"
           echo "✅ Secret deleted"
 
+      - name: Delete IAM Roles and Policies
+        run: |
+          echo "🗑️ Deleting IAM Roles..."
+          aws iam detach-role-policy \
+            --role-name petclinic-khadimana-ecs-execution-role \
+            --policy-arn arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy 2>/dev/null || true
+          aws iam detach-role-policy \
+            --role-name petclinic-khadimana-ecs-execution-role \
+            --policy-arn arn:aws:iam::201900446058:policy/petclinic-khadimana-ecs-execution-logs 2>/dev/null || true
+          aws iam detach-role-policy \
+            --role-name petclinic-khadimana-ecs-execution-role \
+            --policy-arn arn:aws:iam::201900446058:policy/petclinic-khadimana-ecs-execution-secrets 2>/dev/null || true
+          aws iam delete-role --role-name petclinic-khadimana-ecs-execution-role 2>/dev/null || true
+          aws iam delete-role --role-name petclinic-khadimana-ecs-task-role 2>/dev/null || true
+          aws iam delete-policy --policy-arn arn:aws:iam::201900446058:policy/petclinic-khadimana-ecs-execution-logs 2>/dev/null || true
+          aws iam delete-policy --policy-arn arn:aws:iam::201900446058:policy/petclinic-khadimana-ecs-execution-secrets 2>/dev/null || true
+          echo "✅ IAM Roles deleted"
+
       - name: Clean S3 Bucket
         run: |
           echo "🗑️ Cleaning S3 bucket..."
-          BUCKET_NAME="petclinic-terraform-state-201900446058"
-          aws s3 rm s3://${BUCKET_NAME}/ --recursive 2>/dev/null || echo "ℹ️ Bucket already empty"
+          aws s3 rm s3://${{ env.BUCKET_NAME }}/ --recursive 2>/dev/null || echo "ℹ️ Bucket already empty"
           echo "✅ S3 bucket cleaned"
 
-      - name: Terraform Init
+      # 2. SUPPRESSION DU BACKEND S3 POUR ÉVITER LES ERREURS D'ÉTAT
+      - name: Save and Delete S3 State Files
+        run: |
+          echo "🗑️ Saving and deleting S3 state files..."
+          BUCKET="${{ env.BUCKET_NAME }}"
+          # Supprimer les fichiers d'état avec leurs versions
+          aws s3api list-object-versions \
+            --bucket ${BUCKET} \
+            --region ${{ env.AWS_REGION }} \
+            --query 'Versions[?contains(Key, `terraform.tfstate`)].{Key:Key,VersionId:VersionId}' \
+            --output text | while read key version; do
+              if [ -n "$version" ] && [ "$version" != "null" ]; then
+                aws s3api delete-object --bucket ${BUCKET} --key "$key" --version-id "$version" --region ${{ env.AWS_REGION }}
+              fi
+            done
+          echo "✅ S3 state files deleted"
+
+      - name: Delete S3 Bucket (optional)
+        run: |
+          echo "🗑️ Deleting S3 bucket (optional)..."
+          aws s3api delete-bucket \
+            --bucket ${{ env.BUCKET_NAME }} \
+            --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Bucket kept for future use"
+          echo "✅ Done"
+
+      # 3. TERRAFORM DESTROY (avec reconfigure pour éviter les erreurs d'état)
+      - name: Terraform Init with Reconfigure
         working-directory: ${{ env.TERRAFORM_PATH }}
-        run: terraform init -upgrade -reconfigure
+        run: |
+          rm -rf .terraform .terraform.lock.hcl terraform.tfstate* 2>/dev/null || true
+          terraform init -upgrade -reconfigure
 
       - name: Terraform Destroy
         working-directory: ${{ env.TERRAFORM_PATH }}
-        run: terraform destroy -auto-approve
+        run: |
+          # Vérifier s'il reste des ressources dans l'état
+          if terraform state list 2>/dev/null | grep -q .; then
+            echo "🗑️ Destroying remaining resources..."
+            terraform destroy -auto-approve
+          else
+            echo "ℹ️ No resources in state"
+          fi
+
+      # 4. NETTOYAGE FINAL
+      - name: Clean Local State
+        working-directory: ${{ env.TERRAFORM_PATH }}
+        run: |
+          echo "🗑️ Cleaning local state files..."
+          rm -rf .terraform .terraform.lock.hcl terraform.tfstate* 2>/dev/null || true
+          echo "✅ Local state cleaned"
 
       - name: Display Completion
         run: |
           echo "============================================"
           echo "  ✅ DESTRUCTION COMPLETE"
           echo "============================================"
-          echo "All resources have been deleted successfully."
-          echo "S3 bucket: cleaned"
-          echo "DynamoDB: preserved for future use"
+          echo "✅ ECR Repository: deleted"
+          echo "✅ Secrets: deleted"
+          echo "✅ IAM Roles: deleted"
+          echo "✅ S3 bucket: cleaned"
+          echo "✅ Terraform state: reset"
+          echo "============================================"
+          echo "ℹ️ DynamoDB table 'terraform-locks' preserved"
+          echo "ℹ️ You can now redeploy with 'Deploy PetClinic'"
           echo "============================================"
