@@ -1,4 +1,4 @@
-name: CI/CD Pipeline - PetClinic
+name: Deploy PetClinic
 
 on:
   push:
@@ -14,13 +14,9 @@ env:
   ECS_SERVICE: petclinic-khadimana-service
   TERRAFORM_PATH: terraform/environments/dev
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
-  build-and-deploy:
-    name: Build and Deploy
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -31,9 +27,6 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.5.7
-
-      - name: Setup Docker
-        uses: docker/setup-buildx-action@v3
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -48,17 +41,16 @@ jobs:
 
       - name: Create ECR Repository if not exists
         run: |
-          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
           REPO_NAME="${{ env.ECR_REPOSITORY }}"
           if aws ecr describe-repositories --repository-names ${REPO_NAME} --region ${{ env.AWS_REGION }} 2>/dev/null; then
-            echo "Repository ${REPO_NAME} already exists."
+            echo "✅ Repository ${REPO_NAME} already exists."
           else
             echo "Creating repository ${REPO_NAME}..."
             aws ecr create-repository \
               --repository-name ${REPO_NAME} \
               --region ${{ env.AWS_REGION }} \
               --image-scanning-configuration scanOnPush=true
-            echo "Repository ${REPO_NAME} created."
+            echo "✅ Repository ${REPO_NAME} created."
           fi
 
       - name: Build and push Docker image
@@ -67,11 +59,11 @@ jobs:
           IMAGE_TAG=${GITHUB_SHA::7}
           ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
           ECR_URL="${ACCOUNT_ID}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}"
-          echo "Building image..."
+          echo "📦 Building image..."
           docker build -t ${ECR_URL}:${IMAGE_TAG} .
           docker tag ${ECR_URL}:${IMAGE_TAG} ${ECR_URL}:latest
           docker tag ${ECR_URL}:${IMAGE_TAG} ${ECR_URL}:v1
-          echo "Pushing image..."
+          echo "📤 Pushing image..."
           docker push ${ECR_URL}:${IMAGE_TAG}
           docker push ${ECR_URL}:latest
           docker push ${ECR_URL}:v1
@@ -80,23 +72,20 @@ jobs:
 
       - name: Terraform Init
         working-directory: ${{ env.TERRAFORM_PATH }}
-        run: |
-          terraform init -upgrade
+        run: terraform init -upgrade -reconfigure
 
       - name: Terraform Validate
         working-directory: ${{ env.TERRAFORM_PATH }}
-        run: |
-          terraform validate
+        run: terraform validate
 
       - name: Terraform Apply
         working-directory: ${{ env.TERRAFORM_PATH }}
-        run: |
-          terraform apply -auto-approve -var="image_tag=${{ env.IMAGE_TAG }}"
+        run: terraform apply -auto-approve -var="image_tag=${{ env.IMAGE_TAG }}"
 
       - name: Smoke Test
         run: |
           ALB_URL=$(cd ${{ env.TERRAFORM_PATH }} && terraform output -raw alb_dns_name)
-          echo "Testing application at http://$ALB_URL"
+          echo "🧪 Testing application at http://$ALB_URL"
           for i in {1..10}; do
             if curl -s -f http://$ALB_URL/actuator/health; then
               echo "✅ Smoke test passed!"
@@ -111,6 +100,9 @@ jobs:
       - name: Display Deployment Info
         run: |
           ALB_URL=$(cd ${{ env.TERRAFORM_PATH }} && terraform output -raw alb_dns_name)
-          echo "✅ Application deployed successfully!"
+          echo "============================================"
+          echo "  ✅ DEPLOYMENT COMPLETED SUCCESSFULLY"
+          echo "============================================"
           echo "🌐 URL: http://$ALB_URL"
           echo "📦 Image tag: ${{ env.IMAGE_TAG }}"
+          echo "============================================"

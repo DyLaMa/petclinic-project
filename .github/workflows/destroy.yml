@@ -1,0 +1,87 @@
+name: Destroy All Resources
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "DESTROY" to confirm resource deletion'
+        required: true
+        default: ''
+        type: string
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: petclinic-khadimana-petclinic
+  TERRAFORM_PATH: terraform/environments/dev
+
+jobs:
+  destroy:
+    name: Destroy All Resources
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check confirmation
+        run: |
+          if [ "${{ github.event.inputs.confirm }}" != "DESTROY" ]; then
+            echo "❌ Confirmation failed. Please type 'DESTROY' to confirm."
+            exit 1
+          fi
+          echo "✅ Confirmation received. Proceeding with destruction..."
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.7
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Delete ECR Repository
+        run: |
+          echo "🗑️ Deleting ECR repository..."
+          aws ecr delete-repository \
+            --repository-name ${{ env.ECR_REPOSITORY }} \
+            --region ${{ env.AWS_REGION }} \
+            --force 2>/dev/null || echo "ℹ️ Repository already deleted"
+          echo "✅ ECR repository deleted"
+
+      - name: Delete Secret
+        run: |
+          echo "🗑️ Deleting secret..."
+          aws secretsmanager delete-secret \
+            --secret-id petclinic-khadimana-db-credentials \
+            --force-delete-without-recovery \
+            --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Secret already deleted"
+          echo "✅ Secret deleted"
+
+      - name: Clean S3 Bucket
+        run: |
+          echo "🗑️ Cleaning S3 bucket..."
+          BUCKET_NAME="petclinic-terraform-state-201900446058"
+          aws s3 rm s3://${BUCKET_NAME}/ --recursive 2>/dev/null || echo "ℹ️ Bucket already empty"
+          echo "✅ S3 bucket cleaned"
+
+      - name: Terraform Init
+        working-directory: ${{ env.TERRAFORM_PATH }}
+        run: terraform init -upgrade -reconfigure
+
+      - name: Terraform Destroy
+        working-directory: ${{ env.TERRAFORM_PATH }}
+        run: terraform destroy -auto-approve
+
+      - name: Display Completion
+        run: |
+          echo "============================================"
+          echo "  ✅ DESTRUCTION COMPLETE"
+          echo "============================================"
+          echo "All resources have been deleted successfully."
+          echo "S3 bucket: cleaned"
+          echo "DynamoDB: preserved for future use"
+          echo "============================================"
