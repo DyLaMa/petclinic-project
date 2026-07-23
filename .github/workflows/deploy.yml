@@ -14,10 +14,6 @@ env:
   ECS_SERVICE: petclinic-khadimana-service
   TERRAFORM_PATH: terraform/environments/dev
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
   build-and-deploy:
     name: Build and Deploy
@@ -32,10 +28,11 @@ jobs:
         with:
           terraform_version: 1.5.7
 
-      - name: Configure AWS credentials (OIDC)
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::201900446058:role/petclinic-github-actions-role
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to Amazon ECR
@@ -46,11 +43,13 @@ jobs:
         working-directory: app
         run: |
           IMAGE_TAG=${GITHUB_SHA::7}
-          docker build -t ${{ env.ECR_REPOSITORY }}:$IMAGE_TAG .
-          docker tag ${{ env.ECR_REPOSITORY }}:$IMAGE_TAG ${{ env.ECR_REPOSITORY }}:latest
-          docker push ${{ env.ECR_REPOSITORY }}:$IMAGE_TAG
-          docker push ${{ env.ECR_REPOSITORY }}:latest
-          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+          ECR_URL="${ACCOUNT_ID}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}"
+          docker build -t ${ECR_URL}:${IMAGE_TAG} .
+          docker tag ${ECR_URL}:${IMAGE_TAG} ${ECR_URL}:latest
+          docker push ${ECR_URL}:${IMAGE_TAG}
+          docker push ${ECR_URL}:latest
+          echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
 
       - name: Terraform Init
         working-directory: ${{ env.TERRAFORM_PATH }}
