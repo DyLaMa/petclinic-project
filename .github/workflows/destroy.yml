@@ -112,38 +112,46 @@ jobs:
           fi
 
       # ============================================
-      # 2. RESET COMPLET DU BUCKET S3 AVANT TERRAFORM INIT
+      # 2. SUPPRESSION DU VERROU DYNAMODB
       # ============================================
-      - name: Reset S3 Backend
+      - name: Delete DynamoDB Lock
         run: |
-          echo "🗑️ RESET COMPLET DU BACKEND S3"
+          echo "🗑️ Suppression du verrou DynamoDB..."
+          aws dynamodb delete-item \
+            --table-name terraform-locks \
+            --key '{"LockID": {"S": "${{ env.BUCKET_NAME }}/dev/terraform.tfstate"}}' \
+            --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Verrou déjà supprimé"
+          echo "✅ Verrou DynamoDB supprimé"
+
+      # ============================================
+      # 3. SUPPRESSION COMPLÈTE DU BUCKET S3
+      # ============================================
+      - name: Delete and Recreate S3 Bucket
+        run: |
+          echo "🗑️ SUPPRESSION COMPLÈTE DU BUCKET S3"
           BUCKET="${{ env.BUCKET_NAME }}"
 
           # Supprimer le bucket avec force
           echo "📤 Suppression du bucket S3..."
           aws s3 rb s3://${BUCKET} --force 2>/dev/null || echo "ℹ️ Bucket déjà supprimé"
 
-          # Attendre 5 secondes
-          sleep 5
+          # Attendre 3 secondes
+          sleep 3
 
           # Recréer le bucket
           echo "📥 Recréation du bucket S3..."
-          aws s3api create-bucket --bucket ${BUCKET} --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Bucket existe déjà"
+          aws s3api create-bucket --bucket ${BUCKET} --region ${{ env.AWS_REGION }}
 
           # Activer le versionnement
-          aws s3api put-bucket-versioning --bucket ${BUCKET} --versioning-configuration Status=Enabled 2>/dev/null || true
+          aws s3api put-bucket-versioning --bucket ${BUCKET} --versioning-configuration Status=Enabled
 
           # Activer le chiffrement
-          aws s3api put-bucket-encryption --bucket ${BUCKET} --server-side-encryption-configuration '{"Rules": [{"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]}' 2>/dev/null || true
+          aws s3api put-bucket-encryption --bucket ${BUCKET} --server-side-encryption-configuration '{"Rules": [{"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]}'
 
-          # Supprimer le verrou DynamoDB
-          echo "🗑️ Suppression du verrou DynamoDB..."
-          aws dynamodb delete-item --table-name terraform-locks --key '{"LockID": {"S": "${BUCKET}/dev/terraform.tfstate"}}' --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Verrou déjà supprimé"
-
-          echo "✅ Backend S3 réinitialisé"
+          echo "✅ Bucket S3 recréé"
 
       # ============================================
-      # 3. NETTOYAGE LOCAL
+      # 4. NETTOYAGE LOCAL
       # ============================================
       - name: Clean Local Terraform State
         working-directory: ${{ env.TERRAFORM_PATH }}
@@ -153,7 +161,7 @@ jobs:
           echo "✅ État local nettoyé"
 
       # ============================================
-      # 4. TERRAFORM INIT ET DESTROY
+      # 5. TERRAFORM INIT
       # ============================================
       - name: Terraform Init
         working-directory: ${{ env.TERRAFORM_PATH }}
@@ -174,8 +182,9 @@ jobs:
           echo "✅ CloudWatch Logs: deleted"
           echo "✅ RDS Subnet Group: deleted"
           echo "✅ Target Group: deleted"
-          echo "✅ S3 bucket: reset"
-          echo "✅ DynamoDB lock: cleaned"
+          echo "✅ DynamoDB lock: deleted"
+          echo "✅ S3 bucket: recreated"
+          echo "✅ Local state: cleaned"
           echo "============================================"
           echo "ℹ️ You can now run 'Deploy PetClinic' to redeploy"
           echo "============================================"
