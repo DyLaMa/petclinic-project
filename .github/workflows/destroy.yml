@@ -45,98 +45,17 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       # ============================================
-      # 1. SUPPRESSION DU BUCKET S3 (FORCÉ)
+      # 1. SUPPRESSION DU BACKEND S3 (pour éviter l'erreur d'état)
       # ============================================
       - name: Delete S3 Bucket Completely
         run: |
           echo "🗑️ SUPPRESSION COMPLÈTE DU BUCKET S3"
           BUCKET="${{ env.BUCKET_NAME }}"
-          
-          # Supprimer le bucket avec force
           aws s3 rb s3://${BUCKET} --force 2>/dev/null || echo "ℹ️ Bucket already deleted"
           echo "✅ Bucket S3 supprimé"
 
       # ============================================
-      # 2. SUPPRESSION DES RESSOURCES AWS
-      # ============================================
-      - name: Delete ECR Repository
-        run: |
-          echo "🗑️ Deleting ECR repository..."
-          aws ecr delete-repository \
-            --repository-name ${{ env.ECR_REPOSITORY }} \
-            --region ${{ env.AWS_REGION }} \
-            --force 2>/dev/null || echo "ℹ️ Repository already deleted"
-          echo "✅ ECR repository deleted"
-
-      - name: Delete Secret
-        run: |
-          echo "🗑️ Deleting secret..."
-          aws secretsmanager delete-secret \
-            --secret-id petclinic-khadimana-db-credentials \
-            --force-delete-without-recovery \
-            --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Secret already deleted"
-          echo "✅ Secret deleted"
-
-      - name: Delete IAM Roles and Policies
-        run: |
-          echo "🗑️ Deleting IAM Roles..."
-          aws iam detach-role-policy \
-            --role-name petclinic-khadimana-ecs-execution-role \
-            --policy-arn arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy 2>/dev/null || true
-          aws iam detach-role-policy \
-            --role-name petclinic-khadimana-ecs-execution-role \
-            --policy-arn arn:aws:iam::201900446058:policy/petclinic-khadimana-ecs-execution-logs 2>/dev/null || true
-          aws iam detach-role-policy \
-            --role-name petclinic-khadimana-ecs-execution-role \
-            --policy-arn arn:aws:iam::201900446058:policy/petclinic-khadimana-ecs-execution-secrets 2>/dev/null || true
-          aws iam delete-role --role-name petclinic-khadimana-ecs-execution-role 2>/dev/null || true
-          aws iam delete-role --role-name petclinic-khadimana-ecs-task-role 2>/dev/null || true
-          aws iam delete-policy --policy-arn arn:aws:iam::201900446058:policy/petclinic-khadimana-ecs-execution-logs 2>/dev/null || true
-          aws iam delete-policy --policy-arn arn:aws:iam::201900446058:policy/petclinic-khadimana-ecs-execution-secrets 2>/dev/null || true
-          echo "✅ IAM Roles deleted"
-
-      - name: Delete CloudWatch Log Group
-        run: |
-          echo "🗑️ Deleting CloudWatch Log Group..."
-          aws logs delete-log-group \
-            --log-group-name /ecs/${{ env.ECR_REPOSITORY }}-app \
-            --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Log Group already deleted"
-          echo "✅ CloudWatch Log Group deleted"
-
-      - name: Delete RDS Subnet Group
-        run: |
-          echo "🗑️ Deleting RDS Subnet Group..."
-          aws rds delete-db-subnet-group \
-            --db-subnet-group-name ${{ env.ECR_REPOSITORY }}-db-subnet-group \
-            --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Subnet Group already deleted"
-          echo "✅ RDS Subnet Group deleted"
-
-      - name: Delete Target Group
-        run: |
-          echo "🗑️ Deleting Target Group..."
-          TG_NAME="${{ env.ECR_REPOSITORY }}-tg"
-          TG_ARN=$(aws elbv2 describe-target-groups --names ${TG_NAME} --region ${{ env.AWS_REGION }} --query 'TargetGroups[0].TargetGroupArn' --output text 2>/dev/null || echo "")
-          if [ -n "$TG_ARN" ] && [ "$TG_ARN" != "None" ] && [ "$TG_ARN" != "" ]; then
-            aws elbv2 delete-target-group --target-group-arn "$TG_ARN" --region ${{ env.AWS_REGION }}
-            echo "✅ Target Group deleted"
-          else
-            echo "ℹ️ Target Group already deleted"
-          fi
-
-      # ============================================
-      # 3. SUPPRESSION DU VERROU DYNAMODB
-      # ============================================
-      - name: Delete DynamoDB Lock
-        run: |
-          echo "🗑️ Suppression du verrou DynamoDB..."
-          aws dynamodb delete-item \
-            --table-name terraform-locks \
-            --key '{"LockID": {"S": "${{ env.BUCKET_NAME }}/dev/terraform.tfstate"}}' \
-            --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Verrou déjà supprimé"
-          echo "✅ Verrou DynamoDB supprimé"
-
-      # ============================================
-      # 4. NETTOYAGE LOCAL
+      # 2. NETTOYAGE LOCAL
       # ============================================
       - name: Clean Local Terraform State
         working-directory: ${{ env.TERRAFORM_PATH }}
@@ -146,31 +65,54 @@ jobs:
           echo "✅ État local nettoyé"
 
       # ============================================
-      # 5. TERRAFORM INIT (ne pas utiliser le backend S3)
+      # 3. DÉSACTIVER LE BACKEND S3 DANS main.tf
+      # ============================================
+      - name: Disable S3 Backend in main.tf
+        working-directory: ${{ env.TERRAFORM_PATH }}
+        run: |
+          echo "🔧 Désactivation du backend S3..."
+          cp main.tf main.tf.backup
+          sed -i '/terraform {/,/}/d' main.tf
+          echo "✅ Backend S3 désactivé"
+
+      # ============================================
+      # 4. TERRAFORM INIT (sans backend S3)
       # ============================================
       - name: Terraform Init (local state)
         working-directory: ${{ env.TERRAFORM_PATH }}
+        run: terraform init -upgrade
+
+      # ============================================
+      # 5. TERRAFORM DESTROY
+      # ============================================
+      - name: Terraform Destroy
+        working-directory: ${{ env.TERRAFORM_PATH }}
+        run: terraform destroy -auto-approve
+
+      # ============================================
+      # 6. RESTAURER main.tf ET RECRÉER S3
+      # ============================================
+      - name: Restore main.tf and Recreate S3
+        working-directory: ${{ env.TERRAFORM_PATH }}
         run: |
-          # Désactiver temporairement le backend S3
-          mv main.tf main.tf.backup
-          cat main.tf.backup | sed '/backend "s3" {/,/}/d' > main.tf
-          terraform init -upgrade
+          echo "🔧 Restauration de main.tf..."
           mv main.tf.backup main.tf
+          
+          echo "📥 Recréation du bucket S3..."
+          BUCKET="${{ env.BUCKET_NAME }}"
+          aws s3api create-bucket --bucket ${BUCKET} --region ${{ env.AWS_REGION }}
+          aws s3api put-bucket-versioning --bucket ${BUCKET} --versioning-configuration Status=Enabled
+          aws s3api put-bucket-encryption --bucket ${BUCKET} --server-side-encryption-configuration '{"Rules": [{"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]}'
+          echo "✅ Bucket S3 recréé"
 
       - name: Display Completion
         run: |
           echo "============================================"
           echo "  ✅ DESTRUCTION COMPLETE"
           echo "============================================"
-          echo "✅ ECR Repository: deleted"
-          echo "✅ Secrets: deleted"
-          echo "✅ IAM Roles: deleted"
-          echo "✅ CloudWatch Logs: deleted"
-          echo "✅ RDS Subnet Group: deleted"
-          echo "✅ Target Group: deleted"
-          echo "✅ DynamoDB lock: deleted"
-          echo "✅ S3 bucket: deleted"
-          echo "✅ Local state: cleaned"
+          echo "✅ S3 bucket: deleted and recreated"
+          echo "✅ Terraform Destroy: executed"
+          echo "✅ All resources: destroyed"
           echo "============================================"
           echo "ℹ️ You can now run 'Deploy PetClinic' to redeploy"
           echo "============================================"
