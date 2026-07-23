@@ -44,9 +44,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      # ============================================
-      # 1. SUPPRESSION DES RESSOURCES AWS
-      # ============================================
       - name: Delete ECR Repository
         run: |
           echo "🗑️ Deleting ECR repository..."
@@ -102,51 +99,28 @@ jobs:
       - name: Delete Target Group
         run: |
           echo "🗑️ Deleting Target Group..."
-          TG_ARN=$(aws elbv2 describe-target-groups \
-            --names ${{ env.ECR_REPOSITORY }}-tg \
-            --region ${{ env.AWS_REGION }} \
-            --query 'TargetGroups[0].TargetGroupArn' \
-            --output text 2>/dev/null)
-          if [ -n "$TG_ARN" ] && [ "$TG_ARN" != "None" ]; then
-            aws elbv2 delete-target-group --target-group-arn $TG_ARN --region ${{ env.AWS_REGION }}
+          TG_NAME="${{ env.ECR_REPOSITORY }}-tg"
+          TG_ARN=$(aws elbv2 describe-target-groups --names ${TG_NAME} --region ${{ env.AWS_REGION }} --query 'TargetGroups[0].TargetGroupArn' --output text 2>/dev/null || echo "")
+          if [ -n "$TG_ARN" ] && [ "$TG_ARN" != "None" ] && [ "$TG_ARN" != "" ]; then
+            aws elbv2 delete-target-group --target-group-arn "$TG_ARN" --region ${{ env.AWS_REGION }}
             echo "✅ Target Group deleted"
           else
             echo "ℹ️ Target Group already deleted"
           fi
 
-      # ============================================
-      # 2. RESET COMPLET DU BACKEND S3
-      # ============================================
       - name: Reset S3 Backend
         run: |
           echo "🗑️ RESET COMPLET DU BACKEND S3"
           BUCKET="${{ env.BUCKET_NAME }}"
-
-          # Supprimer le bucket avec force
-          echo "📤 Suppression du bucket S3..."
-          aws s3 rb s3://${BUCKET} --force 2>/dev/null || echo "ℹ️ Bucket déjà supprimé"
-
-          # Attendre que la suppression soit complète
+          aws s3 rb s3://${BUCKET} --force 2>/dev/null || echo "ℹ️ Bucket already deleted"
           sleep 5
-
-          # Recréer le bucket
           echo "📥 Recréation du bucket S3..."
-          aws s3api create-bucket --bucket ${BUCKET} --region ${{ env.AWS_REGION }}
-          aws s3api put-bucket-versioning --bucket ${BUCKET} --versioning-configuration Status=Enabled
-          aws s3api put-bucket-encryption --bucket ${BUCKET} --server-side-encryption-configuration '{"Rules": [{"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]}'
-
-          # Supprimer le verrou DynamoDB
-          echo "🗑️ Suppression du verrou DynamoDB..."
-          aws dynamodb delete-item \
-            --table-name terraform-locks \
-            --key '{"LockID": {"S": "${BUCKET}/dev/terraform.tfstate"}}' \
-            --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Verrou déjà supprimé"
-
+          aws s3api create-bucket --bucket ${BUCKET} --region ${{ env.AWS_REGION }} || echo "ℹ️ Bucket creation skipped"
+          aws s3api put-bucket-versioning --bucket ${BUCKET} --versioning-configuration Status=Enabled 2>/dev/null || true
+          aws s3api put-bucket-encryption --bucket ${BUCKET} --server-side-encryption-configuration '{"Rules": [{"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]}' 2>/dev/null || true
+          aws dynamodb delete-item --table-name terraform-locks --key '{"LockID": {"S": "${BUCKET}/dev/terraform.tfstate"}}' --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Lock already deleted"
           echo "✅ Backend S3 réinitialisé"
 
-      # ============================================
-      # 3. TERRAFORM DESTROY
-      # ============================================
       - name: Clean Local Terraform State
         working-directory: ${{ env.TERRAFORM_PATH }}
         run: |
