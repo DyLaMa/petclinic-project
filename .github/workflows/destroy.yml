@@ -44,7 +44,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      # 1. NETTOYAGE DES RESSOURCES AWS AVANT TERRAFORM
+      # ============================================
+      # 1. SUPPRESSION DES RESSOURCES AWS
+      # ============================================
       - name: Delete ECR Repository
         run: |
           echo "🗑️ Deleting ECR repository..."
@@ -81,62 +83,84 @@ jobs:
           aws iam delete-policy --policy-arn arn:aws:iam::201900446058:policy/petclinic-khadimana-ecs-execution-secrets 2>/dev/null || true
           echo "✅ IAM Roles deleted"
 
-      - name: Clean S3 Bucket
+      - name: Delete CloudWatch Log Group
         run: |
-          echo "🗑️ Cleaning S3 bucket..."
-          aws s3 rm s3://${{ env.BUCKET_NAME }}/ --recursive 2>/dev/null || echo "ℹ️ Bucket already empty"
-          echo "✅ S3 bucket cleaned"
+          echo "🗑️ Deleting CloudWatch Log Group..."
+          aws logs delete-log-group \
+            --log-group-name /ecs/${{ env.ECR_REPOSITORY }}-app \
+            --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Log Group already deleted"
+          echo "✅ CloudWatch Log Group deleted"
 
-      # 2. SUPPRESSION DU BACKEND S3 POUR ÉVITER LES ERREURS D'ÉTAT
-      - name: Save and Delete S3 State Files
+      - name: Delete RDS Subnet Group
         run: |
-          echo "🗑️ Saving and deleting S3 state files..."
-          BUCKET="${{ env.BUCKET_NAME }}"
-          # Supprimer les fichiers d'état avec leurs versions
-          aws s3api list-object-versions \
-            --bucket ${BUCKET} \
+          echo "🗑️ Deleting RDS Subnet Group..."
+          aws rds delete-db-subnet-group \
+            --db-subnet-group-name ${{ env.ECR_REPOSITORY }}-db-subnet-group \
+            --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Subnet Group already deleted"
+          echo "✅ RDS Subnet Group deleted"
+
+      - name: Delete Target Group
+        run: |
+          echo "🗑️ Deleting Target Group..."
+          TG_ARN=$(aws elbv2 describe-target-groups \
+            --names ${{ env.ECR_REPOSITORY }}-tg \
             --region ${{ env.AWS_REGION }} \
-            --query 'Versions[?contains(Key, `terraform.tfstate`)].{Key:Key,VersionId:VersionId}' \
-            --output text | while read key version; do
-              if [ -n "$version" ] && [ "$version" != "null" ]; then
-                aws s3api delete-object --bucket ${BUCKET} --key "$key" --version-id "$version" --region ${{ env.AWS_REGION }}
-              fi
-            done
-          echo "✅ S3 state files deleted"
+            --query 'TargetGroups[0].TargetGroupArn' \
+            --output text 2>/dev/null)
+          if [ -n "$TG_ARN" ] && [ "$TG_ARN" != "None" ]; then
+            aws elbv2 delete-target-group --target-group-arn $TG_ARN --region ${{ env.AWS_REGION }}
+            echo "✅ Target Group deleted"
+          else
+            echo "ℹ️ Target Group already deleted"
+          fi
 
-      - name: Delete S3 Bucket (optional)
+      # ============================================
+      # 2. RESET COMPLET DU BACKEND S3
+      # ============================================
+      - name: Reset S3 Backend
         run: |
-          echo "🗑️ Deleting S3 bucket (optional)..."
-          aws s3api delete-bucket \
-            --bucket ${{ env.BUCKET_NAME }} \
-            --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Bucket kept for future use"
-          echo "✅ Done"
+          echo "🗑️ RESET COMPLET DU BACKEND S3"
+          BUCKET="${{ env.BUCKET_NAME }}"
 
-      # 3. TERRAFORM DESTROY (avec reconfigure pour éviter les erreurs d'état)
-      - name: Terraform Init with Reconfigure
+          # Supprimer le bucket avec force
+          echo "📤 Suppression du bucket S3..."
+          aws s3 rb s3://${BUCKET} --force 2>/dev/null || echo "ℹ️ Bucket déjà supprimé"
+
+          # Attendre que la suppression soit complète
+          sleep 5
+
+          # Recréer le bucket
+          echo "📥 Recréation du bucket S3..."
+          aws s3api create-bucket --bucket ${BUCKET} --region ${{ env.AWS_REGION }}
+          aws s3api put-bucket-versioning --bucket ${BUCKET} --versioning-configuration Status=Enabled
+          aws s3api put-bucket-encryption --bucket ${BUCKET} --server-side-encryption-configuration '{"Rules": [{"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]}'
+
+          # Supprimer le verrou DynamoDB
+          echo "🗑️ Suppression du verrou DynamoDB..."
+          aws dynamodb delete-item \
+            --table-name terraform-locks \
+            --key '{"LockID": {"S": "${BUCKET}/dev/terraform.tfstate"}}' \
+            --region ${{ env.AWS_REGION }} 2>/dev/null || echo "ℹ️ Verrou déjà supprimé"
+
+          echo "✅ Backend S3 réinitialisé"
+
+      # ============================================
+      # 3. TERRAFORM DESTROY
+      # ============================================
+      - name: Clean Local Terraform State
         working-directory: ${{ env.TERRAFORM_PATH }}
         run: |
-          rm -rf .terraform .terraform.lock.hcl terraform.tfstate* 2>/dev/null || true
-          terraform init -upgrade -reconfigure
+          echo "🗑️ Nettoyage de l'état local..."
+          rm -rf .terraform .terraform.lock.hcl terraform.tfstate* .terraform.tfstate.lock.info 2>/dev/null || true
+          echo "✅ État local nettoyé"
+
+      - name: Terraform Init
+        working-directory: ${{ env.TERRAFORM_PATH }}
+        run: terraform init -upgrade -reconfigure
 
       - name: Terraform Destroy
         working-directory: ${{ env.TERRAFORM_PATH }}
-        run: |
-          # Vérifier s'il reste des ressources dans l'état
-          if terraform state list 2>/dev/null | grep -q .; then
-            echo "🗑️ Destroying remaining resources..."
-            terraform destroy -auto-approve
-          else
-            echo "ℹ️ No resources in state"
-          fi
-
-      # 4. NETTOYAGE FINAL
-      - name: Clean Local State
-        working-directory: ${{ env.TERRAFORM_PATH }}
-        run: |
-          echo "🗑️ Cleaning local state files..."
-          rm -rf .terraform .terraform.lock.hcl terraform.tfstate* 2>/dev/null || true
-          echo "✅ Local state cleaned"
+        run: terraform destroy -auto-approve 2>/dev/null || echo "ℹ️ No resources to destroy"
 
       - name: Display Completion
         run: |
@@ -146,9 +170,11 @@ jobs:
           echo "✅ ECR Repository: deleted"
           echo "✅ Secrets: deleted"
           echo "✅ IAM Roles: deleted"
-          echo "✅ S3 bucket: cleaned"
-          echo "✅ Terraform state: reset"
+          echo "✅ CloudWatch Logs: deleted"
+          echo "✅ RDS Subnet Group: deleted"
+          echo "✅ Target Group: deleted"
+          echo "✅ S3 bucket: reset"
+          echo "✅ DynamoDB lock: cleaned"
           echo "============================================"
-          echo "ℹ️ DynamoDB table 'terraform-locks' preserved"
-          echo "ℹ️ You can now redeploy with 'Deploy PetClinic'"
+          echo "ℹ️ You can now run 'Deploy PetClinic' to redeploy"
           echo "============================================"

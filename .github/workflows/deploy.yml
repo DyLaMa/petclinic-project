@@ -39,20 +39,6 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Create ECR Repository if not exists
-        run: |
-          REPO_NAME="${{ env.ECR_REPOSITORY }}"
-          if aws ecr describe-repositories --repository-names ${REPO_NAME} --region ${{ env.AWS_REGION }} 2>/dev/null; then
-            echo "✅ Repository ${REPO_NAME} already exists."
-          else
-            echo "Creating repository ${REPO_NAME}..."
-            aws ecr create-repository \
-              --repository-name ${REPO_NAME} \
-              --region ${{ env.AWS_REGION }} \
-              --image-scanning-configuration scanOnPush=true
-            echo "✅ Repository ${REPO_NAME} created."
-          fi
-
       - name: Build and push Docker image
         working-directory: app
         run: |
@@ -101,7 +87,7 @@ jobs:
         run: |
           ALB_URL=$(cd ${{ env.TERRAFORM_PATH }} && terraform output -raw alb_dns_name)
           echo "============================================"
-          echo "  ✅ DEPLOYMENT COMPLETED SUCCESSFULLY"
+          echo "  ✅ DEPLOYMENT COMPLETED"
           echo "============================================"
           echo "🌐 URL: http://$ALB_URL"
           echo "📦 Image tag: ${{ env.IMAGE_TAG }}"
