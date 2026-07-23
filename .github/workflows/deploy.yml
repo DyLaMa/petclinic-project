@@ -13,7 +13,6 @@ env:
   ECS_CLUSTER: petclinic-khadimana-cluster
   ECS_SERVICE: petclinic-khadimana-service
   TERRAFORM_PATH: terraform/environments/dev
-  BUCKET_NAME: petclinic-terraform-state-201900446058
 
 jobs:
   deploy:
@@ -36,35 +35,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      # ============================================
-      # 1. RECREATION DU BUCKET S3
-      # ============================================
-      - name: Recreate S3 Bucket
-        run: |
-          echo "📥 RECREATION DU BUCKET S3"
-          BUCKET="${{ env.BUCKET_NAME }}"
-          
-          # Vérifier si le bucket existe
-          if aws s3api head-bucket --bucket ${BUCKET} --region ${{ env.AWS_REGION }} 2>/dev/null; then
-            echo "✅ Bucket ${BUCKET} existe déjà"
-          else
-            echo "📥 Création du bucket ${BUCKET}..."
-            aws s3api create-bucket --bucket ${BUCKET} --region ${{ env.AWS_REGION }}
-            aws s3api put-bucket-versioning --bucket ${BUCKET} --versioning-configuration Status=Enabled
-            aws s3api put-bucket-encryption --bucket ${BUCKET} --server-side-encryption-configuration '{"Rules": [{"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]}'
-            echo "✅ Bucket ${BUCKET} créé"
-          fi
-
-      # ============================================
-      # 2. LOGIN ECR
-      # ============================================
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      # ============================================
-      # 3. BUILD DOCKER
-      # ============================================
       - name: Build and push Docker image
         working-directory: app
         run: |
@@ -89,12 +63,17 @@ jobs:
           echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
           echo "✅ Image pushed to ECR"
 
-      # ============================================
-      # 4. TERRAFORM
-      # ============================================
-      - name: Terraform Init
+      - name: Disable S3 Backend in main.tf
         working-directory: ${{ env.TERRAFORM_PATH }}
-        run: terraform init -upgrade -reconfigure
+        run: |
+          echo "🔧 Désactivation du backend S3..."
+          cp main.tf main.tf.backup
+          sed -i '/terraform {/,/}/d' main.tf
+          echo "✅ Backend S3 désactivé"
+
+      - name: Terraform Init (local state)
+        working-directory: ${{ env.TERRAFORM_PATH }}
+        run: terraform init -upgrade
 
       - name: Terraform Validate
         working-directory: ${{ env.TERRAFORM_PATH }}
@@ -104,9 +83,13 @@ jobs:
         working-directory: ${{ env.TERRAFORM_PATH }}
         run: terraform apply -auto-approve -var="image_tag=${{ env.IMAGE_TAG }}"
 
-      # ============================================
-      # 5. SMOKE TEST
-      # ============================================
+      - name: Restore main.tf with S3 backend
+        working-directory: ${{ env.TERRAFORM_PATH }}
+        run: |
+          echo "🔧 Restauration du backend S3..."
+          mv main.tf.backup main.tf
+          echo "✅ Backend S3 restauré"
+
       - name: Smoke Test
         run: |
           ALB_URL=$(cd ${{ env.TERRAFORM_PATH }} && terraform output -raw alb_dns_name)
@@ -122,9 +105,6 @@ jobs:
           echo "❌ Smoke test failed after 10 attempts"
           exit 1
 
-      # ============================================
-      # 6. DISPLAY
-      # ============================================
       - name: Display Deployment Info
         run: |
           ALB_URL=$(cd ${{ env.TERRAFORM_PATH }} && terraform output -raw alb_dns_name)
