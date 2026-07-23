@@ -14,3 +14,7 @@ Le bucket S3 et la table DynamoDB ont été recréés.
 
 ## Fix : ECR repository deleted
 Le repository ECR a été supprimé manuellement.
+
+## FINAL : Clean resources and trigger pipeline
+Toutes les ressources AWS ont été supprimées.
+Le pipeline va tout recréer automatiquement.
