@@ -5,3 +5,6 @@ Projet d'automatisation du déploiement de Spring PetClinic sur AWS avec CI/CD e
 
 ## IAM Configuration
 L'utilisateur github-actions-user utilise la politique github-actions-full-policy.
+
+## Reconstruction après nettoyage
+Le pipeline va tout reconstruire automatiquement.
